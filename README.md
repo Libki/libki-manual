@@ -2,6 +2,8 @@
 
 ## What is Libki?
 
+![Libki Kiosk Management System](.gitbook/assets/libki-banner.png)
+
 Libki is a cross-platform pc reservation booking and time management system designed to allow time limited access to computers on a network. Libki is ideally suited for use in locations where a controlled computing environment is paramount such as public access systems, libraries, school computer laboratories and more! It consists of two parts, the Libki server, and the Libki client.
 
 ## The Libki server
