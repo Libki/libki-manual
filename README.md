@@ -24,23 +24,11 @@ Guides for both deployment types are available in the [Installation](installatio
 
 Libki Server is meant to work on all web browsers, but is most tested on Chrome and Firefox.
 
-### Using this Manual
-
-This manual is always changing and suggestions for edits can be sent to the Koha Documentation Team as a merge request via gitlab or via the [koha-docs mailing list](https://lists.koha-community.org/cgi-bin/mailman/listinfo/koha-docs). The manual is organized by Koha module. At the start of most sections \(and throughout\) you will find ‘Get there’ tips. These lines tell you how to get to the section in Koha.
-
-For example: _Get there:_ More &gt; Administration &gt; Global system preferences
-
-Get there: More &gt; Administration &gt; Global system preferences
-
-The instruction tells you where to find the necessary menu option at the top of the Koha staff client.
-
-Links will be found throughout the manual to other sections in the manual and images will depict what should be seen on the screen.
-
-### Contributing to the Manual
+## Contributing to the Manual
 
 This manual is an ever-changing document and edits to the manual are welcome at any time.
 
-The [Koha Manual](http://manual.koha-community.org/) is managed by the Documentation Manager, but that doesn’t mean we can’t all participate in making the best manual possible.
+Suggestions for edits can be sent to the Libki Documentation Team as a merge request via Github, or by editing in GitBook if you'd like to join the team!
 
-The manual is stored in git at: [http://git.koha-community.org/gitweb/?p=kohadocs.git;a=summary](http://git.koha-community.org/gitweb/?p=kohadocs.git;a=summary)
+The manual is currently available on [GitBook](https://libki.gitbook.io/manual) or via [GitHub](https://github.com/Libki/libki-manual).
 
