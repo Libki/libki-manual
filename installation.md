@@ -2,7 +2,7 @@
 
 ## Manual Installation
 
-This guide is tested on Debian Jessie (8.10).
+This guide is tested on Debian Jessie \(8.10\).
 
 ### Login as root
 
@@ -23,12 +23,14 @@ adduser libki
 ### Install needed packages
 
 First, update and upgrade your server.
+
 ```bash
 apt-get update
 apt-get upgrade
 ```
 
 Then, we'll install the needed packages.
+
 ```bash
 apt-get install curl perl git make build-essential unzip mysql-server pwgen ntp -y
 ```
@@ -67,15 +69,13 @@ cd libki-server
 ./script/setup/basic_setup.sh
 ```
 
-Before you continue, log out of the libki user and log back in.
-This makes sure Perl is functioning properly.
- 
+Before you continue, log out of the libki user and log back in. This makes sure Perl is functioning properly.
 
 ```bash
 exit
 su - libki
 cd libki-server
-```  
+```
 
 * Create the Libki database by running the setup script below
 
@@ -93,9 +93,9 @@ Write down that password - you will need it in a second.
 nano libki_local.conf
 ```
 
-Change the password to what you got from the Mysql setup script. 
+Change the password to what you got from the Mysql setup script.
 
-Enable or disable SIP by changing the parity bit. It's disabled by default, and if you're not connecting it to an ILS (integrated library system such as Koha) there's no need to change this.
+Enable or disable SIP by changing the parity bit. It's disabled by default, and if you're not connecting it to an ILS \(integrated library system such as Koha\) there's no need to change this.
 
 * Set up logger
 
@@ -137,9 +137,7 @@ cp /home/libki/libki-server/init-script-template /etc/init.d/libki
 update-rc.d libki defaults
 ```
 
-By default, Libki is run via Starman as the backend, but you can switch to Gazelle by commenting the line enabling Starman and uncommenting the line enabling Gazelle.
-With a little modification it would be possible to use other backends as well, such as Starlet.
-Starman is a very mature PSGI backend, whereas Gazelle is newer but appears to be higher performance.
+By default, Libki is run via Starman as the backend, but you can switch to Gazelle by commenting the line enabling Starman and uncommenting the line enabling Gazelle. With a little modification it would be possible to use other backends as well, such as Starlet. Starman is a very mature PSGI backend, whereas Gazelle is newer but appears to be higher performance.
 
 ### Set up the Libki cron jobs
 
@@ -185,16 +183,15 @@ crontab -e
 
 Add the following line
 
-```
+```text
 * * * * * /etc/init.d/libki start
 ```
 
-At this point, the libki server setup is complete. You can go ahead and use it by visiting http://YOUR_SERVERS_IP_ADDRESS:3000/ now if you want to. 
-If you, however, want to run it at port 80 (i.e. don't having to write in :3000 and simplify accessing a server that's not on your internal network and so on), You will want to setup a reverse proxy.
+At this point, the libki server setup is complete. You can go ahead and use it by visiting [http://YOUR\_SERVERS\_IP\_ADDRESS:3000/](http://YOUR_SERVERS_IP_ADDRESS:3000/) now if you want to. If you, however, want to run it at port 80 \(i.e. don't having to write in :3000 and simplify accessing a server that's not on your internal network and so on\), You will want to setup a reverse proxy.
 
 ### OPTIONAL: Set up your reverse proxy
 
-Make sure you're logged in as root. 
+Make sure you're logged in as root.
 
 * Install Apache
 
@@ -208,9 +205,9 @@ apt-get install apache2
 cd /home/libki/libki-server
 ```
 
-* Run the apache_setup.sh script
+* Run the apache\_setup.sh script
 
-This disables the old default conf, copies reverse_proxy.config to Apache's folder and enables both the Libki reverse proxy and the needed modules..
+This disables the old default conf, copies reverse\_proxy.config to Apache's folder and enables both the Libki reverse proxy and the needed modules..
 
 ```bash
 ./script/setup/apache_setup.sh
@@ -221,10 +218,12 @@ This disables the old default conf, copies reverse_proxy.config to Apache's fold
 ```bash
 service apache2 restart
 ```
+
 ### OPTIONAL: Configuring Libki to authenticate against a SIP server
 
-To enable SIP authentication, you will need to edit your libki_local.conf and add a section like this:
-```
+To enable SIP authentication, you will need to edit your libki\_local.conf and add a section like this:
+
+```text
 <SIP>
     enable 1
     host ils.mylibrary.org
@@ -245,6 +244,7 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
 ```
 
 The SIP section requires the following parameters:
+
 * enable: Set to 1 to enable SIP auth, 0 to disable it.
 * host: The SIP server's IP or FQDN.
 * port: The port that SIP server listens on.
@@ -252,16 +252,15 @@ The SIP section requires the following parameters:
 * username: The username for the SIP account to use for transactions.
 * password: The password for the SIP accouant to use for transactions.
 * terminator: This is either CR or CRLF depending on the SIP server. Default is CR
-* require_sip_auth: Does this SIP server require a message 93 login before it can be used? If so this should be set to 1 and the username/password fields should be populated. This should be set to 1 for Koha.
-* enable_split_message: IF thie server supports split messages you can enable this. This should be set to 0 for Koha.
-* fee_limit: As notated, this can be a set number or a SIP field to check. If the fee limit is exceeded, the user login will be denied.
-* deny_on: This can be repeated to deny logins based on the patron information flags detailed in the SIP2 protocol specification.
-* deny_on_field: This can be repeated to deny logins if the Specified field does not have a value of "Y".
+* require\_sip\_auth: Does this SIP server require a message 93 login before it can be used? If so this should be set to 1 and the username/password fields should be populated. This should be set to 1 for Koha.
+* enable\_split\_message: IF thie server supports split messages you can enable this. This should be set to 0 for Koha.
+* fee\_limit: As notated, this can be a set number or a SIP field to check. If the fee limit is exceeded, the user login will be denied.
+* deny\_on: This can be repeated to deny logins based on the patron information flags detailed in the SIP2 protocol specification.
+* deny\_on\_field: This can be repeated to deny logins if the Specified field does not have a value of "Y".
 
 ### Troubleshooting
 
-You can now test to see if your server is running by using the cli web browser 'links'.
-If you don't have links installed you can installed it via the command
+You can now test to see if your server is running by using the cli web browser 'links'. If you don't have links installed you can installed it via the command
 
 ```bash
 sudo apt-get install links
@@ -273,13 +272,11 @@ Now, open the Libki public page via:
 links 127.0.0.1:80
 ```
 
-If this loads the Libki login page, congrats!
-If you get an error, you can try bypassing the proxy and access the server directly on port 3000.
+If this loads the Libki login page, congrats! If you get an error, you can try bypassing the proxy and access the server directly on port 3000.
 
 ```bash
 links 127.0.0.1:3000
 ```
 
-If this works, then you'll want to check your Apache error logs for the failure reason.
-If it does not work, you'll want to check the Libki server error log instead.
-It can be found at /home/libki/libki_server.log if you've followed this tutorial closely.
+If this works, then you'll want to check your Apache error logs for the failure reason. If it does not work, you'll want to check the Libki server error log instead. It can be found at /home/libki/libki\_server.log if you've followed this tutorial closely.
+
