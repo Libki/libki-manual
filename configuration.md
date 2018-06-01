@@ -2,6 +2,8 @@
 
 ## Settings
 
+## Closing Hours
+
 ## Single Sign-on
 
 ### SIP2
