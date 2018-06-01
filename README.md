@@ -1,4 +1,4 @@
-# Libki Kiosk Management System - Manual
+# Introduction
 
 ![Libki Kiosk Management System](.gitbook/assets/libki-banner.png)
 

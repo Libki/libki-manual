@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Libki Kiosk Management System - Manual](README.md)
+* [Introduction](README.md)
 * [Installation](installation.md)
 * [Credits](credits.md)
 
