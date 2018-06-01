@@ -2,5 +2,6 @@
 
 * [Introduction](README.md)
 * [Installation](installation.md)
+* [Configuration](configuration.md)
 * [Credits](credits.md)
 
