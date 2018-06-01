@@ -2,5 +2,5 @@
 
 * [Introduction](README.md)
 * Introduction
-* Installation
+* [Installation](installation.md)
 
