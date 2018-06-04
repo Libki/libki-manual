@@ -1,6 +1,6 @@
 # Contributing to Libki
 
-## Contributing to Libki
+## Contributing to the Libki source code
 
 ### Submitting bug fixes and features
 
