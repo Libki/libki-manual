@@ -26,9 +26,7 @@ Libki Server is meant to work on all web browsers, but is most tested on Chrome 
 
 ## Making contributions
 
-This manual is an ever-changing document and edits to the manual are welcome at any time.
+This manual is an ever-changing document and edits to the manual are welcome at any time. The canonical source for the Libki manual is [https://manual.libki.org/](https://manual.libki.org/)
 
 If you have a suggestions or contribution for the manual, please follow the guidelines for [contributing to the manual](contributing-to-libki.md#contributing-to-the-manual).
-
-
 
