@@ -6,6 +6,7 @@
 * General Administration
 * Statistics & History
 * Public Web Interface
-* [Credits](credits.md)
 * Desktop Client
+* [Contributing to Libki](contributing-to-libki.md)
+* [Credits](credits.md)
 
