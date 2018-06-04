@@ -28,7 +28,7 @@ Libki Server is meant to work on all web browsers, but is most tested on Chrome 
 
 This manual is an ever-changing document and edits to the manual are welcome at any time.
 
-Suggestions for edits can be sent to the Libki Documentation Team as a merge request via Github, or by editing in GitBook if you'd like to join the team!
+If you have a suggestions or contribution for the manual, please follow the guidelines for [contributing to the manual](contributing-to-libki.md#contributing-to-libki).
 
-The manual is currently available on [GitBook](https://libki.gitbook.io/manual) or via [GitHub](https://github.com/Libki/libki-manual).
+
 
