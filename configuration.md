@@ -177,13 +177,42 @@ Make sure the URL beings with http:// or https:// as necessary.
 
 ## Closing Hours
 
+Closing hours are a way to prevent users from starting a session that will be cut short by the closing of the location he or she is at. Closing hours can be set on a site-wide basis, or on a per-location basis. If a given location has no closing hours set, that location will use the _All locations_ closing hours.
+
 ## Single Sign-on
 
 ### SIP2
 
+Single Sign-on can with an ILS can be achieved via SIP2. Settings for the ILS SIP2 server can be stored in the _libki\_local.conf_ file or the **SIP configuration** setting.
+
 ### LDAP
+
+Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP server are currently stored in the _libki\_local.conf_ only, though setting support is expected soon.
 
 ## Print Management
 
+Print management in Libki is powered by Google Cloud Print. To set up print management, first set up your printers in Google Cloud Print. Next, generate a client id and secret. Finally, enter your configuration in the **Printer configuration** setting as YAML. The code block below is an example configuration with two printer profiles for a single printer \( one color, one monochrome \).
 
+```text
+google_cloud_print:
+  client_id: 893746288161-libc4aj9loitf5i2lcuuonj6ggqb37uc.apps.googleusercontent.com
+  client_secret: dEjNmggj-PS9_LnvP92jIYu3
+
+printers:
+  color:
+    type: google_cloud_print
+    google_cloud_id: d4355eb9-5b5b-3982-1492-9a1245298409
+    name: color
+    ticket:
+      color:
+        type: STANDARD_MONOCHROME
+
+  monochrome:
+    type: google_cloud_print
+    google_cloud_id: d4355eb9-5b5b-3982-1492-9a1245298409
+    name: monochrome
+    ticket:
+      color:
+        type: STANDARD_MONOCHROME
+```
 
