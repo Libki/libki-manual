@@ -6,7 +6,7 @@
 
 Libki is a Free Open Source cross-platform pc reservation booking and time management system designed to allow time limited access to computers on a network. Libki is ideally suited for use in locations where a controlled computing environment is paramount such as public access systems, libraries, school computer laboratories and more! It consists of two parts, the Libki server, and the Libki client.
 
-Learn more about Libki by visiting the official Libki website: [http://libki.org](http://libki.org)
+Learn more about Libki by visiting the official Libki website, [libki.org](https://libki.org).
 
 ### The Libki server
 
