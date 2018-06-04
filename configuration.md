@@ -107,6 +107,22 @@ The value of **Extend time at** should be a whole number.
 
 #### Extend time unless
 
+This setting determines if a user is eligible for an automatic time extension. It has two options:
+
+* User's client is reserved
+  * This choice prevents a time extension in the case that the user's client is reserved. Reservations for other client's are not taken into account.
+* Any client is reserved
+  * This choice prevents a time extension in the case that **any** client is currently reserved. If any client is reserved a time extension will not take place, even if the users's client is not currently reserved, 
+
+#### When extending time
+
+This setting determines how minutes are added to a patron's account when an automatic time extension occurs. It has two options:
+
+* Take minutes from daily allotment
+  * This options moves minutes from the user's daily allotment of minutes to the user's session minutes. That means the user can continue using the client computer, but only up to his or her daily allotment of time.
+* Don't take minutes from daily allotment
+  * This option adds minutes to a users session "out of thin air". As such, it does not effect how many sessions a user will have per day.
+
 ## Closing Hours
 
 ## Single Sign-on
