@@ -1,225 +1,58 @@
 # Installation
 
-## Manual Installation
+## Automatic Installation
 
-This guide is tested on Debian Jessie \(8.10\).
+When using the automatic installer, the server must be Ubuntu Server 18.04.
+
+Please read through the installation moments. There is a one-line command in the end if that's what you prefer.
 
 ### Login as root
 
-Start by switching your user to root if you're not already.
+If you are not logged in as root, switch to root.
 
 ```bash
-su
+sudo su
 ```
 
-### Create a user
+### Updating, upgrading and installing git
 
-For this basic, single instance installation, we will create a user named 'libki'.
+It's always best to do a fresh upgrade to be sure you have the latest versions of software available.
+
+Git is used to download the Libki server.
 
 ```bash
-adduser libki
+apt update && apt upgrade -y && apt install git -y
 ```
 
-### Install needed packages
+### Downloading and running the installer
 
-First, update and upgrade your server.
-
-```bash
-apt-get update
-apt-get upgrade
-```
-
-Then, we'll install the needed packages.
-
-```bash
-apt-get install curl perl git make build-essential unzip mysql-server pwgen ntp -y
-```
-
-### Download and install Libki and needed Perl modules
-
-We will use local::lib for our installation, this means that all the Perl modules we need will be installed for the 'libki' user and will not affect any Debian installed Perl modules!
-
-* Log in as the libki user
-
-```bash
-su - libki
-```
-
-* Set up PERL5LIB
-
-```bash
-echo 'export PERL5LIB=$PERL5LIB:/home/libki/libki-server/lib' >> ~/.bashrc
-```
-
-* Clone the Libki server git repository
+First download the Libki server.
 
 ```bash
 git clone https://github.com/libki/libki-server.git
 ```
 
-* Enter the libki-server directory
+Enter the downloaded directory.
 
 ```bash
 cd libki-server
 ```
 
-* Setup log files, Perl and install Libki's Perl dependencies from CPAN
+Run the installer.
 
 ```bash
-./script/setup/basic_setup.sh
+./install.sh
 ```
 
-Before you continue, log out of the libki user and log back in. This makes sure Perl is functioning properly.
+### One-line installer
+
+This is the whole installation process in one single line.
 
 ```bash
-exit
-su - libki
-cd libki-server
+apt update && apt upgrade -y && apt install git && git clone https://github.com/libki/libki-server.git && cd libki-server && ./install.sh
 ```
 
-* Create the Libki database by running the setup script below
-
-Enter your MySQL root password when prompted.
-
-```bash
-./script/setup/mysql_setup.sh
-```
-
-Write down that password - you will need it in a second.
-
-* Open the config file and edit it
-
-```bash
-nano libki_local.conf
-```
-
-Change the password to what you got from the Mysql setup script.
-
-Enable or disable SIP by changing the parity bit. It's disabled by default, and if you're not connecting it to an ILS \(integrated library system such as Koha\) there's no need to change this.
-
-* Set up logger
-
-```bash
-cp log4perl.conf.example log4perl.conf
-nano log4perl.conf
-```
-
-Point the logger to the log file you'd like to use, and make sure it's writable.
-
-* Run the database installer/updater
-
-```bash
-./installer/update_db.pl
-```
-
-This fills the Libki database with the necessary tables and other information.
-
-* Create a superadmin user to log in to Libki as
-
-```bash
-./script/administration/create_user.pl -u *LIBKIADMINNAME* -p *LIBKIADMINPASSWORD* -s
-```
-
-This creates a Libki user, sets its password and makes it administrator.
-
-### Set up your init script
-
-First exit your libki user and go back to your root account.
-
-```bash
-exit
-```
-
-* Copy the init script template to /etc/init.d. This makes Libki run at boot.
-
-```bash
-cp /home/libki/libki-server/init-script-template /etc/init.d/libki
-update-rc.d libki defaults
-```
-
-By default, Libki is run via Starman as the backend, but you can switch to Gazelle by commenting the line enabling Starman and uncommenting the line enabling Gazelle. With a little modification it would be possible to use other backends as well, such as Starlet. Starman is a very mature PSGI backend, whereas Gazelle is newer but appears to be higher performance.
-
-### Set up the Libki cron jobs
-
-* Switch back to the libki account, so you can setup the Libki cron jobs.
-
-```bash
-su - libki
-cd libki-server
-./script/setup/cronjob_setup.sh
-```
-
-* Now you're done as the libki user for a while.
-
-```bash
-exit
-```
-
-### Start Libki
-
-```bash
-service libki start
-```
-
-You can check to see if the daemon is running via
-
-```bash
-ps aux | grep libki
-```
-
-You should see a line similar to the following:
-
-```bash
-root     28326  0.0  0.3  10932  7132 ?        S    09:56   0:00 /usr/bin/perl /home/libki/perl5/bin/start_server --daemonize --port 3000 --pid-file /home/libki/libki.pid --status-file /home/libki/libki.status --log-file /home/libki/libki_server.log -- /home/libki/perl5/bin/plackup -I /home/libki/Libki/lib -I /home/libki/perl5/lib/perl5/ -s Starman --workers 2 --max-requests 50000 -E production -a /home/libki/Libki/libki.psgi
-```
-
-### OPTIONAL: Set up automatic restarter
-
-If you wish to have the Libki server restart itself in the case it dies for some reason, we can add an automatic restarter to the root user’s crontab.
-
-```bash
-crontab -e
-```
-
-Add the following line
-
-```text
-* * * * * /etc/init.d/libki start
-```
-
-At this point, the libki server setup is complete. You can go ahead and use it by visiting [http://YOUR\_SERVERS\_IP\_ADDRESS:3000/](http://YOUR_SERVERS_IP_ADDRESS:3000/) now if you want to. If you, however, want to run it at port 80 \(i.e. don't having to write in :3000 and simplify accessing a server that's not on your internal network and so on\), You will want to setup a reverse proxy.
-
-### OPTIONAL: Set up your reverse proxy
-
-Make sure you're logged in as root.
-
-* Install Apache
-
-```bash
-apt-get install apache2
-```
-
-* Navigate to the libki-server directory
-
-```bash
-cd /home/libki/libki-server
-```
-
-* Run the apache\_setup.sh script
-
-This disables the old default conf, copies reverse\_proxy.config to Apache's folder and enables both the Libki reverse proxy and the needed modules..
-
-```bash
-./script/setup/apache_setup.sh
-```
-
-* Restart apache
-
-```bash
-service apache2 restart
-```
-
-### OPTIONAL: Configuring Libki to authenticate against a SIP server
+## OPTIONAL: Configuring Libki to authenticate against a SIP server
 
 To enable SIP authentication, you will need to edit your libki\_local.conf and add a section like this:
 
