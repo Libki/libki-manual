@@ -22,6 +22,11 @@ Pull requests for features and fixes to the Libki client should be submitting as
 
 ### Coding Guidelines
 
+#### Server coding guidelines
+
+* Perltidy new or altered pieces of code before submission.
+  * Libki server comes with a .perltidyrc file that should always be used when tidying Libki server code.
+
 ## Contributing to the Manual
 
 Suggestions for edits can be sent to the Libki Documentation Team as a merge request via Github, or by editing in GitBook if you'd like to join the team!
