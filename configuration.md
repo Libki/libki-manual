@@ -123,6 +123,58 @@ This setting determines how minutes are added to a patron's account when an auto
 * Don't take minutes from daily allotment
   * This option adds minutes to a users session "out of thin air". As such, it does not effect how many sessions a user will have per day.
 
+#### **Client login banner settings**
+
+The client banners are optional areas on the top and bottom of the Libki client login screen. They are functionally like to web browsers. As such, anything that is viewable in a web browser is viewable in the banner areas \( size permitting \).
+
+#### Source URL
+
+The URL for the image or html that you wish to display in the banner section.
+
+#### Width
+
+If the **Source URL** is an image, it can be forced to a specific width instead of using the image's actual width. Leave empty to use the image's actual width.
+
+#### Height
+
+This is the same as **Width** for the **Source URL** but for height.
+
+### Guest passes
+
+#### Prefix for guest passes
+
+The phrase that each guest pass username should start with. If left empty, the phrase "guest" will be used \(  e.g. guest1, guest2, guest3, etc \).
+
+{% hint style="info" %}
+This setting can be a word or short phrase, but should contain only letters and numbers. Avoid using spaces or special characters.
+{% endhint %}
+
+#### Passes to create per batch
+
+If the _Multiple guests_ button is used, this setting will control how many guest accounts are generated with each clock.
+
+{% hint style="info" %}
+The value of **Passes to create per batch** should be a whole number.
+{% endhint %}
+
+#### Username label
+
+The text in this field will be prepended to the guest username, \( e.g. _"Username:"_ \).
+
+#### Password label
+
+This setting works the same as **Username label** but for the generated password instead of the username.
+
+### Third party integration
+
+#### URL
+
+Entering a url here will cause the username in the user's table of the web administration to become a hyperlink with the user's username at the end. For example, _http://catalog.koha.library/cgi-bin/koha/members/member.pl?quicksearch=1&searchmember=_ will link to the Koha ILS's search function for the given username.
+
+{% hint style="info" %}
+Make sure the URL beings with http:// or https:// as necessary.
+{% endhint %}
+
 ## Closing Hours
 
 ## Single Sign-on
