@@ -129,13 +129,14 @@ echo "export PERL5LIB=$PERL5LIB:/home/libki/libki-server/lib" >> /home/libki/.ba
 
 Depending on your MySQL or MariaDB version, it may or may not want you to log in with a username and password. If you are to log in with a username and password, the username is *root* and you chose the password during the dependencies installation.
 
-If that's the case, start MySQL with ----mysql -uroot -p----.
+If that's the case, start MySQL with `mysql -uroot -p`.
 
-If you didn't get to create a root password during installation, just start MySQL with ----mysql----.
+If you didn't get to create a root password during installation, just start MySQL with `mysql`.
 
 Once inside MySQL, we need to create a database and a user. Note that all aphostrophes are essential and cannot be omitted.
 
-----sql
+[source,sql]
+----
 CREATE DATABASE libki;
 CREATE USER 'libki'@'localhost' IDENTIFIED BY 'CHOOSEAPASSWORD';
 GRANT ALL PRIVILEGES ON libki.* TO 'libki'@'localhost';
@@ -180,7 +181,7 @@ cp log4perl.conf.example log4perl.conf
 
 ==== Installing cron jobs
 
-Part of what makes the Libki server tick is scheduled jobs called cron jobs. ----./script/cronjobs/libki.pl---- is the timer and ----./script/cronjobs/libki_nightly.pl---- is the cleaner that resets everything overnight.
+Part of what makes the Libki server tick is scheduled jobs called cron jobs. `./script/cronjobs/libki.pl` is the timer and `./script/cronjobs/libki_nightly.pl` is the cleaner that resets everything overnight.
 
 There are two pre-written cron files, just to import. The first one is for the libki user and the second one for root.
 
@@ -254,7 +255,7 @@ service apache2 restart
 
 To enable SIP authentication, you will need to edit your libki\_local.conf and add a section like this:
 
-----text
+----
 <SIP>
     enable 1
     host ils.mylibrary.org
