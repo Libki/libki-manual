@@ -253,8 +253,8 @@ service apache2 restart
 ----
 === OPTIONAL: Configuring Libki to authenticate against a SIP server
 
-To enable SIP authentication, you will need to edit your libki\_local.conf and add a section like this:
-
+To enable SIP authentication, you will need to edit your libki_local.conf and add a section like this:
+//TODO: Use callout syntax here
 ----
 <SIP>
     enable 1
