@@ -8,6 +8,10 @@ before_install:
   - docker pull asciidoctor/docker-asciidoctor
 
 script:
+  - export TODAY=`date +%Y-%m-%d`
+  - sed -i -e 's@##VERSION##@'"$TRAVIS_BRANCH $TRAVIS_BUILD_NUMBER"'@g' libki-manual.adoc
+  - sed -i -e 's@##DATE##@'"$TODAY"'@g' libki-manual.adoc
+  - sed -i -e 's@##LIBKI_VERSION##@'"$TRAVIS_BRANCH"'@g' libki-manual.adoc
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output libki-manual.adoc      
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf  asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output libki-manual.adoc    
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-epub asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output libki-manual.adoc    
