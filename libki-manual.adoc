@@ -51,7 +51,7 @@ Please read through the installation moments. There is a one-line command in the
 
 If you are not logged in as root, switch to root.
 
-[source,bash]
+[source,console]
 ----
 sudo su
 ----
@@ -62,7 +62,7 @@ It's always best to do a fresh upgrade to be sure you have the latest versions o
 
 Git is used to download the Libki server.
 
-[source,bash]
+[source,console]
 ----
 apt update && apt upgrade -y && apt install git -y
 ----
@@ -71,21 +71,21 @@ apt update && apt upgrade -y && apt install git -y
 
 First download the Libki server.
 
-[source,bash]
+[source,console]
 ----
 git clone https://github.com/libki/libki-server.git
 ----
 
 Enter the downloaded directory.
 
-[source,bash]
+[source,console]
 ----
 cd libki-server
 ----
 
 Run the installer.
 
-[source,bash]
+[source,console]
 ----
 ./install.sh
 ----
@@ -94,7 +94,7 @@ Run the installer.
 
 This is the whole installation process in one single line.
 
-[source,bash]
+[source,console]
 ----
 apt update && apt upgrade -y && apt install git && git clone https://github.com/libki/libki-server.git && cd libki-server && ./install.sh
 ----
@@ -105,21 +105,21 @@ If you wish to completely build the Libki server by yourself, these guidelines s
 
 First of all, update and upgrade.
 
-[source,bash]
+[source,console]
 ----
 apt update && apt upgrade -y
 ----
 
 ==== Dependencies
 
-[source,bash]
+[source,console]
 ----
 apt install cpanm curl perl git make build-essential unzip mysql-server ntp -y
 ----
 
 You might need these packages too, depending on your server. If you encounter error messages when installing the needed perl modules, this is the place to start.
 
-[source,bash]
+[source,console]
 ----
 apt install libmysqlclient-dev libxml-parser-perl libxml-libxml-perl
 ----
@@ -128,7 +128,7 @@ apt install libmysqlclient-dev libxml-parser-perl libxml-libxml-perl
 
 It is suggested to setup a new user account to run the server from. From here on, we'll use the username *libki*. Give it a good, strong (and preferrably memorable) password.
 
-[source,bash]
+[source,console]
 ----
 adduser libki
 ----
@@ -137,14 +137,14 @@ adduser libki
 
 Clone the repo to the home directory of your newly created user.
 
-[source,bash]
+[source,console]
 ----
 git clone https://github.com/libki/libki-server.git /home/libki/libki-server
 ----
 
 ==== Install needed perl modules
 
-[source,bash]
+[source,console]
 ----
 cd /home/libki/libki-server
 cpanm -n --installdeps .
@@ -154,14 +154,14 @@ This will take a while. Make sure it ends with saying everything was installed c
 
 Now we need to add the Libki server's perl module to our $PATH, so our shell knows where to find it.
 
-[source,bash]
+[source,console]
 ----
 echo "export PERL5LIB=$PERL5LIB:/home/libki/libki-server/lib" >> ~/.bashrc
 ----
 
 We also need to add it to the libki user's $PATH.
 
-[source,bash]
+[source,console]
 ----
 echo "export PERL5LIB=$PERL5LIB:/home/libki/libki-server/lib" >> /home/libki/.bashrc
 ----
@@ -188,14 +188,14 @@ EXIT;
 
 We got our perl modules, we have an empty database... Let's fill it with things.
 
-[source,bash]
+[source,console]
 ----
 ./installer/update_db.pl
 ----
 
 In order for Libki to access the database, we must give it the login information. Make a copy of the libki_local.conf.example file and remove .example. Open it and change the password to the one you chose.
 
-[source,bash]
+[source,console]
 ----
 cp libki_local.conf.example libki_local.conf
 nano libki_local.conf
@@ -205,7 +205,7 @@ You save and close with Ctrl-O and Ctrl-X, respectively.
 
 Now create an admin account, so we can access the administration pages once the server is up and running.
 
-[source,bash]
+[source,console]
 ----
 ./script/administration/create_user.pl -u ADMINUSERNAME -p ADMINPASSWORD -s
 ----
@@ -214,7 +214,7 @@ Now create an admin account, so we can access the administration pages once the 
 
 The Libki server will produce log files. Their default location is /var/log/libki. Even if you don't want to change the default location, you still need to make a working copy the log4perl.conf.example file.
 
-[source,bash]
+[source,console]
 ----
 cp log4perl.conf.example log4perl.conf
 ----
@@ -225,7 +225,7 @@ Part of what makes the Libki server tick is scheduled jobs called cron jobs. ---
 
 There are two pre-written cron files, just to import. The first one is for the libki user and the second one for root.
 
-[source,bash]
+[source,console]
 ----
 cat installer/cron/libkicron | crontab -u libki -
 cat installer/cron/rootcron | crontab -
@@ -235,7 +235,7 @@ cat installer/cron/rootcron | crontab -
 
 Copy the init template to /etc/init.d.
 
-[source,bash]
+[source,console]
 ----
 cp init-script-template /etc/init.d/libki
 ----
@@ -244,14 +244,14 @@ If you want to edit the port of the server (if you, for example, want to run it 
 
 Finally, run update-rc.d to enable Libki as a service.
 
-[source,bash]
+[source,console]
 ----
 update-rc.d libki defaults
 ----
 
 ==== Start the server
 
-[source,bash]
+[source,console]
 ----
 service libki start
 ----
@@ -264,14 +264,14 @@ Make sure you're logged in as root.
 
 * Install Apache
 
-[source,bash]
+[source,console]
 ----
 apt-get install apache2
 ----
 
 * Navigate to the libki-server directory
 
-[source,bash]
+[source,console]
 ----
 cd /home/libki/libki-server
 ----
@@ -280,14 +280,14 @@ cd /home/libki/libki-server
 
 This disables the old default conf, copies reverse_proxy.config to Apache's folder and enables both the Libki reverse proxy and the needed modules..
 
-[source,bash]
+[source,console]
 ----
 ./script/setup/apache_setup.sh
 ----
 
 * Restart apache
 
-[source,bash]
+[source,console]
 ----
 service apache2 restart
 ----
@@ -334,21 +334,21 @@ The SIP section requires the following parameters:
 
 You can now test to see if your server is running by using the cli web browser 'links'. If you don't have links installed you can installed it via the command
 
-[source,bash]
+[source,console]
 ----
 sudo apt-get install links
 ----
 
 Now, open the Libki public page via:
 
-[source,bash]
+[source,console]
 ----
 links 127.0.0.1:80
 ----
 
 If this loads the Libki login page, congrats! If you get an error, you can try bypassing the proxy and access the server directly on port 3000.
 
-[source,bash]
+[source,console]
 ----
 links 127.0.0.1:3000
 ----
