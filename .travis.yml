@@ -1,0 +1,36 @@
+sudo: required
+
+services:
+  - docker                  
+
+before_install:            
+  - mkdir -p output
+  - docker pull asciidoctor/docker-asciidoctor
+
+script:
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output libki-manual.adoc      
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output libki-manual.adoc    
+
+after_error: 
+  - docker logs asciidoc-to-html
+  - docker logs asciidoc-to-pdf
+
+after_failure:
+  - docker logs asciidoc-to-html
+  - docker logs asciidoc-to-pdf
+
+after_success:      
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then exit 0; fi
+  - cd output ; mv README.html index.html ; cp -R ../images images
+  - git init
+  - git clone ${GITHUB_TOKEN}@github.com:Libki/libki.org.git
+  - if [ -d "libki.org/docs/manual/${TRAVIS_BRANCH}" ]; then rm -rf libki.org/docs/manual/${TRAVIS_BRANCH}; fi
+  - mkdir -p libki.org/docs/manual/${TRAVIS_BRANCH}
+  - cp -r output/. libki.org/docs/manual/${TRAVIS_BRANCH}/.
+  - cp -r images libki.org/docs/manual/${TRAVIS_BRANCH}/.
+  - cd libki.org
+  - git config user.name "Kyle M Hall"
+  - git config user.email "kyle@bywatersolutions.com"
+  - git add docs/manual/${TRAVIS_BRANCH}
+  - git commit -m "Regenerate HTML & PDF formats, deploy to libki.org"
+  - git push origin HEAD:master
