@@ -1,19 +1,20 @@
 Libki Manual
 ============
 Kyle M Hall <kyle@kylehall.info>
-##VERSION##, ##DATE##
+{libki-version}, {docdate}
 :compat-mode!:
 :icons: font
 :pagenums:
 :sectnums:
 :toc:
 :toclevels: 2
+:libki-version: ##LIBKI_VERSION##
 
-:libki_version: ##LIBKI_VERSION##
-:manual_updated: ##DATE##
 
 :description: This document catalogs the best practices for installation, +
               configuration and usage of the Libki Kiosk Management System.
+
+Manual for Libki version {libki-version}, last updated on {docdate}.
 
 image::images/libki-banner.png[Libki Kiosk Management System]
 
