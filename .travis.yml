@@ -9,7 +9,8 @@ before_install:
 
 script:
   - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output libki-manual.adoc      
-  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output libki-manual.adoc    
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-pdf  asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output libki-manual.adoc    
+  - docker run -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-epub asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output libki-manual.adoc    
 
 after_error: 
   - docker logs asciidoc-to-html
@@ -21,16 +22,18 @@ after_failure:
 
 after_success:      
   - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then exit 0; fi
-  - cd output ; mv README.html index.html ; cp -R ../images images
-  - git init
-  - git clone ${GITHUB_TOKEN}@github.com:Libki/libki.org.git
-  - if [ -d "libki.org/docs/manual/${TRAVIS_BRANCH}" ]; then rm -rf libki.org/docs/manual/${TRAVIS_BRANCH}; fi
-  - mkdir -p libki.org/docs/manual/${TRAVIS_BRANCH}
-  - cp -r output/. libki.org/docs/manual/${TRAVIS_BRANCH}/.
-  - cp -r images libki.org/docs/manual/${TRAVIS_BRANCH}/.
-  - cd libki.org
+  - cd ..
+  - git clone https://${GITHUB_TOKEN}@github.com/Libki/manual-libki-org.git
+  - ls -alh
+  - if [ -d "manual-libki-org/docs/${TRAVIS_BRANCH}" ]; then rm -rf manual-libki-org/docs/${TRAVIS_BRANCH}; fi
+  - mkdir -p manual-libki-org/docs/${TRAVIS_BRANCH}
+  - cp -r libki-manual/output/. manual-libki-org/docs/${TRAVIS_BRANCH}/.
+  - cp -r libki-manual/images manual-libki-org/docs/${TRAVIS_BRANCH}/.
+  - cd manual-libki-org
+  - ls -alh
   - git config user.name "Kyle M Hall"
   - git config user.email "kyle@bywatersolutions.com"
-  - git add docs/manual/${TRAVIS_BRANCH}
-  - git commit -m "Regenerate HTML & PDF formats, deploy to libki.org"
+  - git add docs/${TRAVIS_BRANCH}
+  - git status
+  - git commit -m "Deploy manual version '${TRAVIS_BRANCH}' to libki.manual.org"
   - git push origin HEAD:master

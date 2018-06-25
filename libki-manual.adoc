@@ -3,6 +3,7 @@ Libki Manual
 Kyle M Hall <kyle@kylehall.info>
 $$VERSION$$, $$DATE$$
 :compat-mode!:
+:icons: font
 :pagenums:
 :sectnums:
 :toc:
