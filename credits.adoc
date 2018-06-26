@@ -1,0 +1,8 @@
+== Credits
+
+=== Authors
+
+* Kyle M Hall <kyle@kylehall.info>
+* Erik Öhrn <erik.ohrn@gmail.com>
+* Christopher Vella <chris@calyx.net.au>
+* Luke Fritz <ldfritz@gmail.com>
