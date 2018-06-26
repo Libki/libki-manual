@@ -26,21 +26,10 @@ include::installation.adoc[]
 
 include::configuration.adoc[]
 
+include::administration.adoc[]
+
+include::desktop-client.adoc[]
+
 include::contributing.adoc[]
 
-== General Administration
-
-== Statistics & History
-
-== Public Web Interface
-
-== Desktop Client
-
-== Credits
-
-=== Authors
-
-* Kyle M Hall <kyle@kylehall.info>
-* Erik Öhrn <erik.ohrn@gmail.com>
-* Christopher Vella <chris@calyx.net.au>
-* Luke Fritz <ldfritz@gmail.com>
+include::credits.adoc[]
