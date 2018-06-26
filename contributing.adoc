@@ -6,9 +6,9 @@
 
 ===== Formatting Patches
 
-* File an Issue on GitHub in the matching repository \( client, server, manual, etc... \) for the issue \( for both enhancement *and* bug fixes \)
+* File an Issue on GitHub in the matching repository ( client, server, manual, etc... ) for the issue ( for both enhancement *and* bug fixes )
 ** The earlier you file the better. It's much better to file an issue stating your intention to develop a new feature or fix before you start to give other community members a chance to review the issue and give feedback.
-* The subject line of your commit\(s\) should begin with "Issue XX: " followed by the description of what the patch does.
+* The subject line of your commit(s) should begin with "Issue XX: " followed by the description of what the patch does.
 * Include a hyperlink to the GitHub issue this patch resolves.
 ** GitHub will notice and automatically link the commit to the issue.
 

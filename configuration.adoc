@@ -123,7 +123,7 @@ This is the same as *Width* for the *Source URL* but for height.
 
 ===== Prefix for guest passes
 
-The phrase that each guest pass username should start with. If left empty, the phrase "guest" will be used \(  e.g. guest1, guest2, guest3, etc \).
+The phrase that each guest pass username should start with. If left empty, the phrase "guest" will be used (  e.g. guest1, guest2, guest3, etc ).
 
 TIP: This setting can be a word or short phrase, but should contain only letters and numbers. Avoid using spaces or special characters.
 
@@ -135,7 +135,7 @@ TIP: The value of *Passes to create per batch* should be a whole number.
 
 ===== Username label
 
-The text in this field will be prepended to the guest username, \( e.g. _"Username:"_ \).
+The text in this field will be prepended to the guest username, ( e.g. _"Username:"_ ).
 
 ===== Password label
 
@@ -167,6 +167,7 @@ Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP se
 
 Print management in Libki is powered by Google Cloud Print. To set up print management, first set up your printers in Google Cloud Print. Next, generate a client id and secret. Finally, enter your configuration in the *Printer configuration* setting as YAML. The code block below is an example configuration with two printer profiles for a single printer ( one color, one monochrome ).
 
+[source,yaml]
 ----
 google_cloud_print:
   client_id: 893746288161-libc4aj9loitf5i2lcuuonj6ggqb37uc.apps.googleusercontent.com

@@ -266,14 +266,18 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
     terminator CR
     require_sip_auth 0
     enable_split_messages 0
-    fee_limit 5.00 == Can be either a fee amount, or a SIP2 field that defines the fee limit ( e.g. CC ), delete for no fee limit
-    deny_on charge_privileges_denied    == You can set SIP2 patron status flags which will deny patrons the ability to log in
-    deny_on recall_privileges_denied    == You can set as many or as few as you want. Delete these if you don't want to deny patrons.
-    deny_on excessive_outstanding_fines == The full listing is defined in the SIP2 protocol specification
-    deny_on_field AB:This is the reason we are daying you  == You can require arbitrary SIP fields to have a value of Y for patrons to be allowed to log in.
-                                                           == The format of the setting is Field:Message
+    fee_limit 5.00 # <1>
+    deny_on charge_privileges_denied # <2>
+    deny_on recall_privileges_denied # <3>
+    deny_on excessive_outstanding_fines # <4>
+    deny_on_field AB:This is the reason we are denying you # <5>
 </SIP>
 ----
+<1> Can be either a fee amount, or a SIP2 field that defines the fee limit ( e.g. CC ), delete for no fee limit
+<2> You can set SIP2 patron status flags which will deny patrons the ability to log in
+<3> You can set as many or as few as you want. Delete these if you don't want to deny patrons.
+<4> The full listing is defined in the SIP2 protocol specification
+<5> You can require arbitrary SIP fields to have a value of Y for patrons to be allowed to log in. The format of the setting is _<Field>:<Message>_.
 
 The SIP section requires the following parameters:
 
@@ -284,11 +288,11 @@ The SIP section requires the following parameters:
 * username: The username for the SIP account to use for transactions.
 * password: The password for the SIP accouant to use for transactions.
 * terminator: This is either CR or CRLF depending on the SIP server. Default is CR
-* require\_sip\_auth: Does this SIP server require a message 93 login before it can be used? If so this should be set to 1 and the username/password fields should be populated. This should be set to 1 for Koha.
-* enable\_split\_message: IF thie server supports split messages you can enable this. This should be set to 0 for Koha.
-* fee\_limit: As notated, this can be a set number or a SIP field to check. If the fee limit is exceeded, the user login will be denied.
-* deny\_on: This can be repeated to deny logins based on the patron information flags detailed in the SIP2 protocol specification.
-* deny\_on\_field: This can be repeated to deny logins if the Specified field does not have a value of "Y".
+* require_sip_auth: Does this SIP server require a message 93 login before it can be used? If so this should be set to 1 and the username/password fields should be populated. This should be set to 1 for Koha.
+* enable_split_message: IF thie server supports split messages you can enable this. This should be set to 0 for Koha.
+* fee_limit: As notated, this can be a set number or a SIP field to check. If the fee limit is exceeded, the user login will be denied.
+* deny_on: This can be repeated to deny logins based on the patron information flags detailed in the SIP2 protocol specification.
+* deny_on_field: This can be repeated to deny logins if the Specified field does not have a value of "Y".
 
 ==== Troubleshooting
 
