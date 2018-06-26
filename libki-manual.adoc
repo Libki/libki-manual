@@ -6,7 +6,7 @@ Kyle M Hall <kyle@kylehall.info>
 :icons: font
 :pagenums:
 :sectnums:
-:toc:
+:toc: macro
 :toclevels: 2
 :libki-version: ##LIBKI_VERSION##
 
@@ -15,6 +15,8 @@ Kyle M Hall <kyle@kylehall.info>
               configuration and usage of the Libki Kiosk Management System.
 
 image::images/libki-banner.png[Libki Kiosk Management System]
+
+toc::[]
 
 include::LICENSE.adoc[]
 
