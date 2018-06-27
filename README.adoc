@@ -7,4 +7,7 @@ It is written in AsciiDoc.
 Each version of the manual for the matching verion of Libki exists as a branch on https://github.com/Libki/libki-manual/
 If you wish to make contributions to the manual please make pull requests to this repo.
 
-If you are unfamiliar with AsciiDoc, please take a look at https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/ and https://asciidoctor.org/docs/asciidoc-recommended-practices/
+If you are unfamiliar with AsciiDoc, please take a look at 
+* https://redhat-documentation.github.io/
+* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/ 
+* https://asciidoctor.org/docs/asciidoc-recommended-practices/
