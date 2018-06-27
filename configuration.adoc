@@ -167,7 +167,7 @@ Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP se
 
 Print management in Libki is powered by Google Cloud Print. To set up print management, first set up your printers in Google Cloud Print. Next, generate a client id and secret. Finally, enter your configuration in the *Printer configuration* setting as YAML. The code block below is an example configuration with two printer profiles for a single printer ( one color, one monochrome ).
 
-[source,yaml]
+[source,json]
 ----
 google_cloud_print:
   client_id: 893746288161-libc4aj9loitf5i2lcuuonj6ggqb37uc.apps.googleusercontent.com
