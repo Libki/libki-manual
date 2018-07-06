@@ -1,0 +1,70 @@
+== Backing up and restoring your Libki database
+
+It is *HIGHLY* adviced to only doing backups and restorations of the database while the system is not being used!
+
+=== Backing up
+
+The backup program is intended to be used on a server with a libki user. 
+
+A backup folder will be created in the libki user's home directory, where the backups are stored.
+
+Please note that this will only create local backups. It is adviced to transfer them to a safe location. A guide on how to transfer automatic backups to an FTP server will be added later.
+
+==== Make a backup manually
+
+Simply run `libki-backup`.
+
+The backup will be created and stored in `/home/libki/backups`. The file name will contain date and time for the backup for easier identifying, i. e. `db_180706_19.30.sql`.
+
+==== Make automatic backups
+
+The backup program features a silent mode, perfect for when you don't want any user input or text output. Run `libki-backup -s` to run it in silent mode.
+
+Automatic backups work the same way as the manual backups, but does not provide any output text. The backup file is created directly in `/home/libki/backups`.
+
+If you want to make backups automatically according to a schedule, this is easiest done through crontab. I won't go through how crontab works, but will provide some example schedules.
+
+Start by running `crontab -e`. You will probably want to use the default editor. Add the schedule at the bottom of the file.
+
+*Crontab examples*
+
+Daily backup at 02:00:
+
+[source,bash]
+----
+0 2 * * * /usr/local/bin/libki-backup -s
+----
+
+Backup every Sunday evening:
+
+[source,bash]
+----
+0 21 * * SUN /usr/local/bin/libki-backup -s
+----
+
+Backup the first date in every month at 01.15:
+
+[source,bash]
+----
+15 1 1 * * /usr/local/bin/libki-backup -s
+----
+
+=== Restoring a backup
+
+Restoring a backup of the database will delete the current database, so be sure you really want to do this.
+
+Start by navigating to the folder containing the backup you want to restore. If the backup was created with the backup program, this folder will be `/home/libki/backups`.
+
+[source,bash]
+----
+cd /home/libki/backups
+----
+
+Now run the program and specify what backup you want to restore.
+
+[source,bash]
+----
+libki-restore db_180706_19.30.sql
+----
+
+Your database is now at the point it was when the backup was created.
