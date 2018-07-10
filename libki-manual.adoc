@@ -28,6 +28,8 @@ include::administration.adoc[]
 
 include::desktop-client.adoc[]
 
+include::backup-restore.adoc[]
+
 include::contributing.adoc[]
 
 include::credits.adoc[]
