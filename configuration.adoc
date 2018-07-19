@@ -190,3 +190,26 @@ printers:
       color:
         type: STANDARD_MONOCHROME
 ----
+
+To get your client id and client secret:
+. Get oAuth2 Credentials
+.. Browse to https://console.developers.google.com/
+.. Enable Cloud API
+.. Create credentials for OAuth 2 type=“Other”
+.. Save the ID and secret for use in the Libki print configuration
+
+To authorize your server to use the Cloud Print API:
+. Run `script/administration/enable_google_cloud_print.pl`
+. Open the URL given in a web browser
+. Authorize your account
+. Copy and paste the code you are given back into the script
+. Hit enter
+. You should recieve the message `Session stored.` if everything was successful.
+
+To get your printer cloud id:
+. Set up the printer for Google Cloud Print
+. Browse to https://www.google.com/cloudprint/simulate.html
+. Use the Printer Search API to search for you printers
+.. Or browse to https://www.google.com/cloudprint/search directly
+. Locate your printer in the results, find the "id" field, it should look something like `id: "ed4ddb78-dc03-8574-8687-be3995df8cd4"`
+
