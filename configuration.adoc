@@ -221,3 +221,25 @@ printers:
 . Copy and paste the code you are given back into the script
 . Hit enter
 . You should recieve the message `Session stored.` if everything was successful.
+
+==== Configuring your clients
+
+After you've set up your server for print management, you will then need to configure your clients as well.
+To accomplish this, you must edit the `Libki Kiosk Management System.ini` file.
+On Windows operating systems, this file is most often located in `C:\ProgramData\Libki` but may be located elsewhere depending on your specific OS configuration.
+You will most likely need to edit this file as an Administrator.
+
+Once you have located the file, you will need to add a new configuration block to the bottom.
+```
+[printers]
+color="C:\\printers\\color"
+monochrome="C:\\printers\\monochrome"
+```
+
+As you can see, the printers match the `name:` fields defined print management configuration for the server.
+You will also need to ensure those directories exist on the client computer.
+Once the Libki client has been started, it will watch those directories for PDF files.
+When the client sees a file, it will uploaded it to the server with the matching printer name.
+
+You can use any PDF print driver to print PDF file to these directories.
+A custom PDF print driver for Libki is in development, but not yet available.
