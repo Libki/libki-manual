@@ -16,11 +16,17 @@ This setting determines the total number of minutes a user will have for each _s
 
 TIP: The value of *Default time allowance per session* should be a whole number.
 
+===== Default guest time allowance per day
+
+This is the same as *Default time allowance per day*, except for guest accounts instead of regular users.
+
+TIP: The value of *Default time allowance per day* should be a whole number.
+
 ===== Default guest time allowance per session
 
-This is the same as *Default time allowance per session*, except for guest accounts instead of regular uses.
+This is the same as *Default time allowance per session*, except for guest accounts instead of regular users.
 
-TIP: The value of *Default guest time allowance per session* should be a whole number.
+TIP: The value of *Default guest time allowance per day* should be a whole number.
 
 ===== Client registration update delay limit
 
