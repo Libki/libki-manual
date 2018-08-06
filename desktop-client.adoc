@@ -91,3 +91,57 @@ It is recommended to use the default installation path unless you have a specifi
 === Client INI configuration options
 
 The Libki client may be customized further with options set in the configuration INI file that are not revealed in the installer wizard.
+
+==== Labels
+
+To modify the labels on the Libki login screen, you can set a `[label]` block. There valid options are:
+
+* username
+* password
+* waiting_holds
+
+You need only add lines to the `[label]` block for the labels you wish to modify. Any labels not redefined here will use the default word or words for
+the given language in use.
+
+```
+[labels]
+username="Username:"                        ; What text it will say at the username input field
+password="Password:"                        ; What text it will say at the password input field
+waiting_holds="You have holds waiting."     ; This can be used if your client connects to your library's ILS via SIP2.
+```
+
+==== Passwordless login
+
+If you are using single-signon via SIP, and your SIP server is set to mark any password a users provides as valid, you can set the Libki client to passwordless mode.
+
+To do so, simply add or modify the `no_passwords` key under the `[node]` section to appear like so:
+```
+no_passwords=1 ; Lets you hide the password field if passwords are not used.
+```
+
+==== restrict client usage by age
+
+It is possible to specify that a given Libki client can only be used by persons of a given age range.
+To use this feature, just add a new key under the `[node]` section of the Libki client ini named `age_limit`.
+This feature only works when using single-signon via SIP, and the SIP server returns a `PB` field of the date format `YYYYMMDD` where that date is the patron's date of birth.
+
+Example:
+```
+[node]
+age_limit="gt18"
+```
+
+This will limit the client to patrons older than 18. At the moment this only works via SIP2 as there is currently no way to edit a user's age from the staff administration.
+
+Multiple age limits can be implemented delimited by commans, such as `age_limit="ge11,le17"` which will limit the client to users between ( and including ) the ages of 11 and 17.
+
+The format first two characters are the comparison. Supported comparisons are:
+
+* `eq`: equal to
+* `ne`: not equal to
+* `lt`: less than
+* `gt`: greater than
+* `le`: less than or equal to
+* `ge`: greater than or equal to
+
+It is possible to make a client unusable by anyone ( e.g. "gt18,lt17" ) so be careful with this configuration.
