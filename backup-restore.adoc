@@ -1,6 +1,6 @@
 == Backing up and restoring your Libki database
 
-It is *HIGHLY* adviced to only doing backups and restorations of the database while the system is not being used!
+WARNING: It is *HIGHLY* advised to only perform  backups and restorations of the database while the system is not being used!
 
 === Backing up
 
