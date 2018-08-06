@@ -1,1 +1,93 @@
 == Desktop client
+
+=== Downloading the client
+
+The Windows wizard installer for the Libki client can be downloaded from https://github.com/Libki/libki-client/releases
+
+Make sure to download the client version that matches your Libki server version.
+
+=== The client setup wizard
+
+After downloading the client, run it and you will be presented with the installer wizard.
+Here you will be asked a series of questions about how you would like your client to be configured.
+
+==== Scheme
+
+Set this field to `https` if you have set up your Libki server behind an SSL-enabled proxy,
+set it to `http` otherwise.
+
+==== Host
+
+Set this to the ip address or FQDN for your Libki server.
+
+==== Port
+
+Set this field to the external port your Libki server is listening on.
+
+==== Location
+
+Set this field to the location you wish to label this client as being at.
+This is an arbitrary text field. If you are setting multiple clients to have the same location,
+make sure that you use the exact same spelling for all the clients.
+
+For example, you may set the location to `Main Floor` or `Children's Room`.
+
+==== Run only for this user
+
+If you enter a Windows account username in this field, the Libki client will only
+launch when that Windows user is logged in to.
+
+==== Run for all users but this one
+
+This is the inverse of `Run only for this user`. If you set a Windows account username
+in this field, the client will not run for that user, but will for all other users.
+
+==== Client name
+
+Here you can name this client node, each client should have a unique username otherwise
+you will get unexpected behavior.
+
+If you leave this field blank, Libki will user the client computers hostname as the Libki
+client's name.
+
+If you set the value of this field to `OS_USERNAME`, the logged in Windows account username
+will be used as the client's name.
+
+==== Logout action
+
+This section will let you choose what happens when the Libki client logs out,
+either because the patron's time has run out, or the patron chooses to log out early.
+
+===== Reboot
+
+This option will trigger a full reboot of the client PC.
+This is useful when combined with the software http://www.faronics.com/products/deep-freeze/enterprise[Deep Freeze],
+which resets the state of a computer each time it is rebooted.
+
+===== Log out of operating system
+
+This option will trigger a logout of the Windows account that the client is currently logged in as.
+This is useful when combined with the software http://www.fortresgrand.com/products/cls/cls.htm[Clean Slate],
+which resets the state of a computer each time that the Windows account is logged out.
+
+===== Nothing
+
+This option leaves the host OS in the state it is currently in, and merely redisplays the login screen.
+This option is not recommended for production use. Any applications the user had open at the time the client
+was logged off of will still be open.
+This option is useful for testing and debugging.
+
+==== Client disable password
+
+Here you may enter a 'back door' password.
+At any time, if this password is entered into the Libki login screen with an empty username, it will cause the Libki client to close.
+This is useful in the event that a client loses connectivity with the server and is unable to verify logins.
+
+==== Installation location
+
+This is the path to which the Libki client will be installed.
+It is recommended to use the default installation path unless you have a specific reason to do otherwise.
+
+=== Client INI configuration options
+
+The Libki client may be customized further with options set in the configuration INI file that are not revealed in the installer wizard.
