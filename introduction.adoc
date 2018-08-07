@@ -14,7 +14,7 @@ The Libki server utilizes a web-based administration system that can be accessed
 
 The Libki client is cross-platform and runs on many operating systems including Microsoft Windows and Linux. The Libki client features a counter to let the user know how many minutes are left, and the ability to log off early. Any unused minutes can be used at any other computer running the Libki client. The Libki client can be set to log off from the operating system, or even reboot the computer when a user logs off from the Libki client.
 
-=== Libki Server recommendations
+=== Libki server recommendations
 
 At the time of this writing, it is recommended to run Libki Server on https://www.debian.org/[Debian Linux], https://www.ubuntu.com/server[Ubuntu Server] or via https://www.docker.com/[Docker].
 
