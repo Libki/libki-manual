@@ -61,7 +61,7 @@ either because the patron's time has run out, or the patron chooses to log out e
 ===== Reboot
 
 This option will trigger a full reboot of the client PC.
-This is useful when combined with the software http://www.faronics.com/products/deep-freeze/enterprise[Deep Freeze],
+This is useful when combined with the software http://www.faronics.com/products/deep-freeze/enterprise[Deep Freeze] or https://horizondatasys.com/reboot-restore-rx-freeware/[Reboot Restore Rx]
 which resets the state of a computer each time it is rebooted.
 
 ===== Log out of operating system
