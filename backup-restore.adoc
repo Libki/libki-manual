@@ -1,4 +1,4 @@
-== Backing up and restoring your Libki database
+== Backup & restoration
 
 WARNING: It is *HIGHLY* advised to only perform  backups and restorations of the database while the system is not being used!
 

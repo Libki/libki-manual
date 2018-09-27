@@ -1,6 +1,7 @@
+[[installation]]
 == Installation
 
-=== Automatic Installation
+=== Automatic installation
 
 When using the automatic installer, the server must be Ubuntu Server 18.04 or Debian Stretch.
 

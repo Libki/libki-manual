@@ -155,11 +155,11 @@ Entering a url here will cause the username in the user's table of the web admin
 
 TIP: Make sure the URL beings with http:// or https:// as necessary.
 
-=== Closing Hours
+=== Closing hours
 
 Closing hours are a way to prevent users from starting a session that will be cut short by the closing of the location he or she is at. Closing hours can be set on a site-wide basis, or on a per-location basis. If a given location has no closing hours set, that location will use the _All locations_ closing hours.
 
-=== Single Sign-on
+=== Single sign-on
 
 ==== SIP2
 
@@ -190,7 +190,7 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
 <4> The full listing is defined in the SIP2 protocol specification
 <5> You can require arbitrary SIP fields to have a value of Y for patrons to be allowed to log in. The format of the setting is _<Field>:<Message>_.
 
-An equivilent configuration set via the system settings would like like this:
+An equivilent configuration set via YAML in the system settings would look like this:
 [source,yaml]
 ----
 enable: 1
@@ -228,7 +228,7 @@ The SIP section requires the following parameters:
 
 Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP server are currently stored in the _libki\_local.conf_ only, though setting support is expected soon.
 
-=== Print Management
+=== Print management
 
 Print management in Libki is powered by Google Cloud Print. To set up print management, first set up your printers in Google Cloud Print. Next, generate a client id and secret. Finally, enter your configuration in the *Printer configuration* setting as YAML. The code block below is an example configuration with two printer profiles for a single printer ( one color, one monochrome ).
 

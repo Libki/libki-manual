@@ -1,5 +1,5 @@
 == Administration
 
-=== Statistics & History
+=== Statistics & history
 
 

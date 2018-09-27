@@ -1,12 +1,12 @@
 == Desktop client
 
-=== Downloading the client
+=== Download
 
 The Windows wizard installer for the Libki client can be downloaded from https://github.com/Libki/libki-client/releases
 
 Make sure to download the client version that matches your Libki server version.
 
-=== The client setup wizard
+=== Installer wizard
 
 After downloading the client, run it and you will be presented with the installer wizard.
 Here you will be asked a series of questions about how you would like your client to be configured.
@@ -88,7 +88,7 @@ This is useful in the event that a client loses connectivity with the server and
 This is the path to which the Libki client will be installed.
 It is recommended to use the default installation path unless you have a specific reason to do otherwise.
 
-=== Client INI configuration options
+=== Configuration options
 
 The Libki client may be customized further with options set in the configuration INI file that are not revealed in the installer wizard.
 
