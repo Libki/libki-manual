@@ -36,6 +36,14 @@ TIP: The value of *Client registration update delay limit* should be a whole num
 
 ==== Data retention
 
+===== History anonymization
+
+This setting controls how long user and client data is retained in an un-anonymized format. If this setting is left empty, the data will be kept indefinitely.
+
+When anonymized, a particular user will be given a new random id on a per-day basis. In this way, statistics will still be able to track usage on a per-user basis per day, but will be unable to track per-user usage over any longer time period.
+
+TIP: The value of *History anonymization* should a whole number.
+
 ===== History retention
 
 This setting controls how long user and client data is retained for the purpose of generating statistics and checking usage history, in days. If this setting is left empty, the data will be kept indefinitely.
