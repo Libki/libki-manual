@@ -109,6 +109,10 @@ This setting determines how minutes are added to a patron's account when an auto
 * Don't take minutes from daily allotment
 ** This option adds minutes to a users session "out of thin air". As such, it does not effect how many sessions a user will have per day.
 
+===== Terms of service
+
+This setting allows a library to add _terms of service_ for use of computers running the Libki client. Simply adding text of your terms of service in the textbox will cause the terms to be displayed to any person logging into a Libki client. If the person chooses _yes_ the login will proceed as usual. If the person chooses _no_ the login screen will be reset.
+
 ===== *Client login banner settings*
 
 The client banners are optional areas on the top and bottom of the Libki client login screen. They are functionally like to web browsers. As such, anything that is viewable in a web browser is viewable in the banner areas \( size permitting \).
