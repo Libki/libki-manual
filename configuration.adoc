@@ -165,7 +165,7 @@ This setting works the same as *Username label* but for the generated password i
 
 Entering a url here will cause the username in the user's table of the web administration to become a hyperlink with the user's username at the end. For example, _http://catalog.koha.library/cgi-bin/koha/members/member.pl?quicksearch=1&searchmember=_ will link to the Koha ILS's search function for the given username.
 
-==== SIP Configuration
+===== SIP configuration
 
 Single Sign-on can with an ILS can be achieved via SIP2. Settings for the ILS SIP2 server can be stored in the _libki\_local.conf_ file or the *SIP configuration* setting.
 
