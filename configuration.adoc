@@ -2,7 +2,7 @@
 
 === Settings
 
-==== Basics
+==== Basic settings
 
 ===== Default time allowance per day
 
@@ -121,7 +121,7 @@ This setting determines how minutes are added to a patron's account when an auto
 
 This setting allows a library to add _terms of service_ for use of computers running the Libki client. Simply adding text of your terms of service in the textbox will cause the terms to be displayed to any person logging into a Libki client. If the person chooses _yes_ the login will proceed as usual. If the person chooses _no_ the login screen will be reset.
 
-===== *Client login banner settings*
+===== Client login banners
 
 The client banners are optional areas on the top and bottom of the Libki client login screen. They are functionally like to web browsers. As such, anything that is viewable in a web browser is viewable in the banner areas \( size permitting \).
 
@@ -159,21 +159,13 @@ The text in this field will be prepended to the guest username, ( e.g. _"Usernam
 
 This setting works the same as *Username label* but for the generated password instead of the username.
 
-==== Third party integration
+==== ILS integration
 
-===== URL
+===== Patron hyperlinks
 
 Entering a url here will cause the username in the user's table of the web administration to become a hyperlink with the user's username at the end. For example, _http://catalog.koha.library/cgi-bin/koha/members/member.pl?quicksearch=1&searchmember=_ will link to the Koha ILS's search function for the given username.
 
-TIP: Make sure the URL beings with http:// or https:// as necessary.
-
-=== Closing hours
-
-Closing hours are a way to prevent users from starting a session that will be cut short by the closing of the location he or she is at. Closing hours can be set on a site-wide basis, or on a per-location basis. If a given location has no closing hours set, that location will use the _All locations_ closing hours.
-
-=== Single sign-on
-
-==== SIP2
+==== SIP Configuration
 
 Single Sign-on can with an ILS can be achieved via SIP2. Settings for the ILS SIP2 server can be stored in the _libki\_local.conf_ file or the *SIP configuration* setting.
 
@@ -241,6 +233,12 @@ The SIP section requires the following parameters:
 ==== LDAP
 
 Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP server are currently stored in the _libki\_local.conf_ only, though setting support is expected soon.
+
+TIP: Make sure the URL beings with http:// or https:// as necessary.
+
+=== Closing hours
+
+Closing hours are a way to prevent users from starting a session that will be cut short by the closing of the location he or she is at. Closing hours can be set on a site-wide basis, or on a per-location basis. If a given location has no closing hours set, that location will use the _All locations_ closing hours.
 
 === Print management
 
