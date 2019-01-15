@@ -276,3 +276,34 @@ links 127.0.0.1:3000
 ----
 
 If this works, then you'll want to check your Apache error logs for the failure reason. If it does not work, you'll want to check the Libki server error log instead. It can be found at /home/libki/libki\_server.log if you've followed this tutorial closely.
+
+=== Docker
+
+The official Libki Server Docker image needs to be connected to a database server, it does not contain a mysql instance within it.
+Using a MySQL or MariaDB container on the same Docker network is considered good practice.
+
+The Libki Server image is available on https://hub.docker.com/r/libki/libki-server[Docker Hub].
+
+This container requires some environment variables to be set in order to function correctly, the following is a mocked example of the environment variables needed:
+----
+LIBKI_INSTANCE=<INSTANCE> // <1>
+LIBKI_DB_DSN=dbi:mysql:<DB_NAME>;host=<DB_HOSTNAME>;port=3306
+LIBKI_DB_USER=<DB_USERNAME>
+LIBKI_DB_PASSWORD=<DB_PASSWORD>
+LIBKI_DB_HOST=<DB_HOSTNAME>
+LIBKI_DB_PORT=3306
+LIBKI_DB_DATABASE=<DB_NAME>
+LIBKI_TZ=America/Denver // <2>
+----
+<1> Instance name, may be left empty for single-instance servers
+<2> Find your timezome in the documentation https://metacpan.org/pod/DateTime::TimeZone::Catalog[here].
+
+So you'll want to set up the database container, then start the Libki container with the following environment variables set:
+LIBKI_INSTANCE=
+LIBKI_DB_DSN=dbi:mysql:$DB_NAME;host=$DB_HOSTNAME;port=3306
+LIBKI_DB_USER=$DB_USERNAME
+LIBKI_DB_PASSWORD=$DB_PASSWORD
+LIBKI_DB_HOST=$DB_HOSTNAME
+LIBKI_DB_PORT=3306
+LIBKI_DB_DATABASE=$DB_NAME
+LIBKI_TZ=America/Denver # Set to your timezone
