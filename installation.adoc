@@ -297,13 +297,3 @@ LIBKI_TZ=America/Denver // <2>
 ----
 <1> Instance name, may be left empty for single-instance servers
 <2> Find your timezome in the documentation https://metacpan.org/pod/DateTime::TimeZone::Catalog[here].
-
-So you'll want to set up the database container, then start the Libki container with the following environment variables set:
-LIBKI_INSTANCE=
-LIBKI_DB_DSN=dbi:mysql:$DB_NAME;host=$DB_HOSTNAME;port=3306
-LIBKI_DB_USER=$DB_USERNAME
-LIBKI_DB_PASSWORD=$DB_PASSWORD
-LIBKI_DB_HOST=$DB_HOSTNAME
-LIBKI_DB_PORT=3306
-LIBKI_DB_DATABASE=$DB_NAME
-LIBKI_TZ=America/Denver # Set to your timezone
