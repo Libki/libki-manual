@@ -60,6 +60,8 @@ This setting should be used to conform to https://www.eugdpr.org/[GDPR] if neces
 
 ==== Client behavior
 
+===== Client reservations
+
 This setting controls how clients may be used by users. There are three possibilities.
 
 * First come, first served.
@@ -70,6 +72,20 @@ This setting controls how clients may be used by users. There are three possibil
 ** A hybrid approach that allows patrons to log in to any client that is not currently in use or reserved.
 
 TIP: The setting Display usernames controls if the user's username is displayed on the reserved client computer.
+
+===== Client inactivity
+
+These settings control the default automatic logout due to user inactivity.
+
+TIP: These server settings can be overridden on a per-client basis. See the <<desktop-client.adoc#client-inactivity,Client configuration>> for more details.
+
+====== Client inactivity warning
+
+Warn user that they will be logged out automatically after this many minutes of inactivity.
+
+====== Client inactivity logout
+
+Log user out automatically after this many minutes of inactivity.
 
 ==== Reservations
 
