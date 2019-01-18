@@ -119,7 +119,7 @@ To do so, simply add or modify the `no_passwords` key under the `[node]` section
 no_passwords=1 ; Lets you hide the password field if passwords are not used.
 ```
 
-==== restrict client usage by age
+==== Restrict client usage by age
 
 It is possible to specify that a given Libki client can only be used by persons of a given age range.
 To use this feature, just add a new key under the `[node]` section of the Libki client ini named `age_limit`.
