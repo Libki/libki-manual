@@ -148,6 +148,7 @@ It is possible to make a client unusable by anyone ( e.g. "gt18,lt17" ) so be ca
 
 ==== Automatic logout due to inactivity
 
+[[client-inactivity]]
 It is possible to configure the Libki client to log a patron out if no mouse movement has been detected in a given number of minutes. Additionaly, the user can be first warned after a different number of minutes. Both of these configurations exist as system settings on the Libki server.
 
 It is also possibly to specifiy these configurations on a per-client basis, in the Libki client INI file. If these settings exist in the client INI file, they will override the settings from the server. In this way, the server settings can act as a default, with particular clients overriding those server provided settings.
