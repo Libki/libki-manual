@@ -285,8 +285,8 @@ If this works, then you'll want to check your Apache error logs for the failure 
 
 === Docker
 
-The official Libki Server Docker image needs to be connected to a database server, it does not contain a mysql instance within it.
-Using a MySQL or MariaDB container on the same Docker network is considered good practice.
+The official Libki Server Docker image needs to be connected to a database server, it does not contain a MySQL instance within it.
+Using a MySQL or a MariaDB container on the same Docker network is considered good practice.
 
 The Libki Server image is available on https://hub.docker.com/r/libki/libki-server[Docker Hub].
 
@@ -303,3 +303,14 @@ LIBKI_TZ=America/Denver // <2>
 ----
 <1> Instance name, may be left empty for single-instance servers
 <2> Find your timezome in the documentation https://metacpan.org/pod/DateTime::TimeZone::Catalog[here].
+
+==== Cronjobs
+
+The Libki cronjobs are not set to run inside the Docker container. Instead, it the cronjobs should be set up on the host machine.
+
+Add the following to the root user's crontab or to a file in `/etc/cron.d/`.
+
+```
+* * * * * root docker exec <container-name> /app/script/cronjobs/libki.pl
+0 0 * * * root docker exec <container-name> /app/script/cronjobs/libki_nightly.pl
+```
