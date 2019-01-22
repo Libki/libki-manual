@@ -181,7 +181,11 @@ cp log4perl.conf.example log4perl.conf
 
 ==== Installing cron jobs
 
-Part of what makes the Libki server tick is scheduled jobs called cron jobs. `./script/cronjobs/libki.pl` is the timer and `./script/cronjobs/libki_nightly.pl` is the cleaner that resets everything overnight.
+Part of what makes the Libki server tick are scheduled jobs called cron jobs.
+Libki has two cronjobs. The first one `script/cronjobs/libki.pl` runs each and every minute and performs tasks such as decrementing time for logged in users and logging out users whose time has run out.
+The second cronjob `script/cronjobs/libki_nightly.pl` performs nightly tasks such as resetting everyones allotment of minutes and deleting data that is past the retention dates specified in the server settings.
+
+TIP: If a cronjob doesn't seem to be working, run it manually and look for errors. A common problem is that a script is unable to write to a log file due to incorrect permissions.
 
 There are two pre-written cron files, just to import. The first one is for the libki user and the second one for root.
 
