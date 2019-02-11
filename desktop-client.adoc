@@ -161,3 +161,18 @@ inactivityWarning=3
 ```
 
 In the above example, Libki will display an inactivity warning after 3 minutes with no mouse movement. The client will then log the user out after another 2 minutes of inactivity. If no warning is wanted, simply set inactivityWarning to a greater number than inactivityLogout.
+
+==== Run external program on login
+It is possible to configure the Libki client to launch another program when a user successfully logs into Libki.
+
+Example:
+```
+[node]
+run_on_login="C:\\Program Files\\Internet Explorer\\iexplore.exe"
+```
+
+In the above example, Libki will launch Internet Explorer after the patron has logged in successfully.
+
+
+
+TIP: You can use single forward slashes instead of the double backslashes ( e.g. `C:/Program Files/Internet Explorer/iexplore.exe` )
