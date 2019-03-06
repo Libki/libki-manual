@@ -179,7 +179,7 @@ This setting works the same as *Username label* but for the generated password i
 
 This setting allows the batch guest passes to be styled with CSS.
 The default value for this setting is:
-[source,perl]
+[source,css]
 ----
 body { /* default body style emulates a pre tag */
     font-family: monospace;
