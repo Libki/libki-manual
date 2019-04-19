@@ -351,15 +351,16 @@ For example:
 Rules should be list from most specific to least specific.
 If a criteria is missing in a rule, then it is not used as part if the matching process.
 
-For example, let's say we are attempting to log in as a patron with the category MyCategory1, and a client with the location MyLocation2.
-The first rule matches category, but not location, so it is skipped.
-The second rule only checks location, which is not a match, so it is skipped.
-The third rule only checks category, which matches, so it is used!
-The last rule has no critea, so it matches on *everything*
+For example, let's say we are attempting to log in as a patron with the category `MyCategory1`, and a client with the location `MyLocation2`.
 
-If there is no catch-all rule like this, Libki will fall back to the origin default time allowance settings
+* The first rule matches category, but not location, so it is skipped.
+* The second rule only checks location, which is not a match, so it is skipped.
+* The third rule only checks category, which matches, so it is used!
+* The last rule has no critea, so it matches on *everything*
 
-====== Even if a rule should match, it will be skipped if it doesn't contain the 'subrule' we are looking for.
+If there is no catch-all rule like this, Libki will fall back to the default time allowance settings from the `Time settings` section.
+
+====== Even if a rule should match, it will be skipped if it doesn't contain the 'subrule' we are looking for
 
 For example, take the following:
 [source,yaml]
@@ -375,13 +376,16 @@ For example, take the following:
     guest_session: 20
 ----
 
-Assume a guest is logging in to a MyLocation1 client.
-The first rule will be skipped because guest_session is not defined in this rule.
-The second rule will be used because it matches all and *does* have guest_session defined.
+Assume a guest is logging in to a `MyLocation1` client.
+
+* The first rule will be skipped because guest_session is not defined in this rule.
+* The second rule will be used because it matches all and *does* have guest_session defined.
 
 ====== Rules can specify multiple values for a given criteria
 
 For example:
+[source,yaml]
+----
 -
   criteria:
     user_category:
@@ -393,13 +397,16 @@ For example:
     daily: 50
     guest_session: 20
     guest_daily: 45
+----
 
-would apply to any user of category MyCategory1 *or* MyCategory2 logging into a client at locatin MyLocationA.
+The above example would apply to any user of category `MyCategory1` *or* `MyCategory2` logging into a client at location `MyLocationA`.
 
-This is, this rule will apply to all the value in the list for that criteria.
+That is, this rule will apply to all the values in the list for that criteria.
 
-Another way to think of it is that all creteria are AND'ed, and all the value for a criteria are OR'ed.
+Another way to think of it is that all criteria are AND'ed, and all the values for a criteria are OR'ed.
 
+[source,yaml]
+----
 -
   criteria:
     user_category:
@@ -413,6 +420,7 @@ Another way to think of it is that all creteria are AND'ed, and all the value fo
     daily: 50
     guest_session: 20
     guest_daily: 45
+----
 
 Would be expressed in SQL like:
 `SELECT rule WHERE ( user_category = Cat1 OR user_category = Cat2 ) AND ( client_location = LocA OR client_location = LocB )`
