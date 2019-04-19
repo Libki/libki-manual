@@ -28,29 +28,39 @@ This is the same as *Default time allowance per session*, except for guest accou
 
 TIP: The value of *Default guest time allowance per day* should be a whole number.
 
-==== Data retention
+==== Automatic time extension
 
-===== History anonymization
+Libki has an automatic time extension system that allows users to remain logged into a client computer beyond the pre-determined number of minutes per session a user is allotted.
 
-This setting controls how long user and client data is retained in an un-anonymized format. If this setting is left empty, the data will be kept indefinitely.
+===== Extension length
 
-When anonymized, a particular user will be given a new random id on a per-day basis. In this way, statistics will still be able to track usage on a per-user basis per day, but will be unable to track per-user usage over any longer time period.
+The amount of time to automatically increase a user's session time by \( in minutes \).
 
-TIP: The value of *History anonymization* should a whole number.
+TIP: The value of *Extension length* should be a whole number.
 
-===== History retention
+===== Extend time at
 
-This setting controls how long user and client data is retained for the purpose of generating statistics and checking usage history, in days. If this setting is left empty, the data will be kept indefinitely.
+This setting controls at what point in time an extension length is triggered. A session will be extended when the user's session time drops below this number, in minutes.
 
-TIP: The value of *History retention* should a whole number.
+TIP: The value of *Extend time at* should be a whole number.
 
-===== Inactive user retention
+===== Extend time unless
 
-This setting controls how long a user can be inactive before being automatically deleted, in days. If this setting is left empty, all users will be kept indefinitely.
+This setting determines if a user is eligible for an automatic time extension. It has two options:
 
-TIP: The value of *Inactive user retention* should be a whole number.
+* User's client is reserved
+** This choice prevents a time extension in the case that the user's client is reserved. Reservations for other client's are not taken into account.
+* Any client is reserved
+** This choice prevents a time extension in the case that *any* client is currently reserved. If any client is reserved a time extension will not take place, even if the users's client is not currently reserved,
 
-This setting should be used to conform to https://www.eugdpr.org/[GDPR] if necessary.
+===== When extending time
+
+This setting determines how minutes are added to a patron's account when an automatic time extension occurs. It has two options:
+
+* Take minutes from daily allotment
+** This options moves minutes from the user's daily allotment of minutes to the user's session minutes. That means the user can continue using the client computer, but only up to his or her daily allotment of time.
+* Don't take minutes from daily allotment
+** This option adds minutes to a users session "out of thin air". As such, it does not effect how many sessions a user will have per day.
 
 ==== Client behavior
 
@@ -87,56 +97,6 @@ When a Libki client launches, it periodically connects to the Libki server to re
 
 TIP: The value of *Client registration update delay limit* should be a whole number.
 
-==== Reservations
-
-===== Reservation timeout
-
-The amount of time \( in minutes \) that a user has to log into his or her reserved computer. If the user does not log in within the specified time limit, the reserved client will become available again.
-
-TIP: The value of *Reservation timeout* should be a whole number.
-
-===== Display usernames
-
-This setting determines if a Libki client that is reserved and waiting will display the username of the person it is waiting for.
-
-==== Automatic time extension
-
-Libki has an automatic time extension system that allows users to remain logged into a client computer beyond the pre-determined number of minutes per session a user is allotted.
-
-===== Extension length
-
-The amount of time to automatically increase a user's session time by \( in minutes \).
-
-TIP: The value of *Extension length* should be a whole number.
-
-===== Extend time at
-
-This setting controls at what point in time an extension length is triggered. A session will be extended when the user's session time drops below this number, in minutes.
-
-TIP: The value of *Extend time at* should be a whole number.
-
-===== Extend time unless
-
-This setting determines if a user is eligible for an automatic time extension. It has two options:
-
-* User's client is reserved
-** This choice prevents a time extension in the case that the user's client is reserved. Reservations for other client's are not taken into account.
-* Any client is reserved
-** This choice prevents a time extension in the case that *any* client is currently reserved. If any client is reserved a time extension will not take place, even if the users's client is not currently reserved,
-
-===== When extending time
-
-This setting determines how minutes are added to a patron's account when an automatic time extension occurs. It has two options:
-
-* Take minutes from daily allotment
-** This options moves minutes from the user's daily allotment of minutes to the user's session minutes. That means the user can continue using the client computer, but only up to his or her daily allotment of time.
-* Don't take minutes from daily allotment
-** This option adds minutes to a users session "out of thin air". As such, it does not effect how many sessions a user will have per day.
-
-===== Terms of service
-
-This setting allows a library to add _terms of service_ for use of computers running the Libki client. Simply adding text of your terms of service in the textbox will cause the terms to be displayed to any person logging into a Libki client. If the person chooses _yes_ the login will proceed as usual. If the person chooses _no_ the login screen will be reset.
-
 ===== Client login banners
 
 The client banners are optional areas on the top and bottom of the Libki client login screen. They are functionally like to web browsers. As such, anything that is viewable in a web browser is viewable in the banner areas \( size permitting \).
@@ -152,6 +112,40 @@ If the *Source URL* is an image, it can be forced to a specific width instead of
 ===== Height
 
 This is the same as *Width* for the *Source URL* but for height.
+
+==== Custom Javascript
+
+===== Administration interface JavaScript
+
+Add custom JavaScript for the admin interface in this text box.
+
+===== Public interface JavaScript
+
+Add custom JavaScript for the public interface in this text box.
+
+==== Data retention
+
+===== History anonymization
+
+This setting controls how long user and client data is retained in an un-anonymized format. If this setting is left empty, the data will be kept indefinitely.
+
+When anonymized, a particular user will be given a new random id on a per-day basis. In this way, statistics will still be able to track usage on a per-user basis per day, but will be unable to track per-user usage over any longer time period.
+
+TIP: The value of *History anonymization* should a whole number.
+
+===== History retention
+
+This setting controls how long user and client data is retained for the purpose of generating statistics and checking usage history, in days. If this setting is left empty, the data will be kept indefinitely.
+
+TIP: The value of *History retention* should a whole number.
+
+===== Inactive user retention
+
+This setting controls how long a user can be inactive before being automatically deleted, in days. If this setting is left empty, all users will be kept indefinitely.
+
+TIP: The value of *Inactive user retention* should be a whole number.
+
+This setting should be used to conform to https://www.eugdpr.org/[GDPR] if necessary.
 
 ==== Guest passes
 
@@ -280,6 +274,162 @@ The SIP section requires the following parameters:
 Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP server are currently stored in the _libki\_local.conf_ only, though setting support is expected soon.
 
 TIP: Make sure the URL beings with http:// or https:// as necessary.
+
+==== Print management
+
+===== Printer configuration
+
+Refer to the main Print Management section for details.
+
+==== Reservations
+
+===== Reservation timeout
+
+The amount of time \( in minutes \) that a user has to log into his or her reserved computer. If the user does not log in within the specified time limit, the reserved client will become available again.
+
+TIP: The value of *Reservation timeout* should be a whole number.
+
+===== Display usernames
+
+This setting determines if a Libki client that is reserved and waiting will display the username of the person it is waiting for.
+
+==== Terms of service
+
+This setting allows a library to add _terms of service_ for use of computers running the Libki client. Simply adding text of your terms of service in the textbox will cause the terms to be displayed to any person logging into a Libki client. If the person chooses _yes_ the login will proceed as usual. If the person chooses _no_ the login screen will be reset.
+
+==== User settings
+
+===== User categories
+
+Add your list of user categories here as a list in YAML syntax.
+
+Example:
+[source,yaml]
+----
+---
+- 'Category 1'
+- 'Category 2'
+- 'Category 3'
+----
+
+If Single Sign-on via SIP integration has been set up, and the SIP configuration for `category_field` has been set up, values from the SIP field will be automatically added to this list as the appear for the first time via SIP.
+
+==== Advanced settings
+
+===== Advanced rules
+
+In this section, advanced rules can be set up to deterimine a number of behaviors based on various criteria.
+
+For example:
+[source,yaml]
+----
+-
+  criteria:
+    user_category: MyCategory1
+    client_location: MyLocation1
+  rules:
+    session: 25
+    guest_session: 20
+-
+  criteria:
+    client_location: MyLocation1
+  rules:
+    session: 20
+    guest_session: 20
+-
+  criteria:
+    user_category: MyCategory1
+  rules:
+    session: 15
+    guest_session: 20
+-
+  rules:
+    session: 10
+    guest_session: 20
+----
+
+Rules should be list from most specific to least specific.
+If a criteria is missing in a rule, then it is not used as part if the matching process.
+
+For example, let's say we are attempting to log in as a patron with the category MyCategory1, and a client with the location MyLocation2.
+The first rule matches category, but not location, so it is skipped.
+The second rule only checks location, which is not a match, so it is skipped.
+The third rule only checks category, which matches, so it is used!
+The last rule has no critea, so it matches on *everything*
+
+If there is no catch-all rule like this, Libki will fall back to the origin default time allowance settings
+
+====== Even if a rule should match, it will be skipped if it doesn't contain the 'subrule' we are looking for.
+
+For example, take the following:
+[source,yaml]
+----
+-
+  criteria:
+    client_location: MyLocation1
+  rules:
+    session: 15
+-
+  rules:
+    session: 10
+    guest_session: 20
+----
+
+Assume a guest is logging in to a MyLocation1 client.
+The first rule will be skipped because guest_session is not defined in this rule.
+The second rule will be used because it matches all and *does* have guest_session defined.
+
+====== Rules can specify multiple values for a given criteria
+
+For example:
+-
+  criteria:
+    user_category:
+      - MyCategory1
+      - MyCategory2
+    client_location: MyLocationA
+  rules:
+    session: 25
+    daily: 50
+    guest_session: 20
+    guest_daily: 45
+
+would apply to any user of category MyCategory1 *or* MyCategory2 logging into a client at locatin MyLocationA.
+
+This is, this rule will apply to all the value in the list for that criteria.
+
+Another way to think of it is that all creteria are AND'ed, and all the value for a criteria are OR'ed.
+
+-
+  criteria:
+    user_category:
+      - Cat1
+      - Cat2
+    client_location:
+      - LocA
+      - LocB
+  rules:
+    session: 25
+    daily: 50
+    guest_session: 20
+    guest_daily: 45
+
+Would be expressed in SQL like:
+`SELECT rule WHERE ( user_category = Cat1 OR user_category = Cat2 ) AND ( client_location = LocA OR client_location = LocB )`
+
+====== Rule options
+
+The list of all possible criteria include:
+* client_location
+* client_name
+* user_category
+
+The list of all possible rules include:
+* session: The number of minutes per session a registered user is given
+* guest_session: The number of minutes per session a guest user is given
+* daily: The daily allotment of minutes to be given to a registered user for the day
+* guest_daily: The daily allotment of minutes to be given to a guest user for the day
+* no_reservation_required: Even if "Client reservations" is set to "Reservation only", allows a login without a reservation. The value should be '1' to enable.
 
 === Closing hours
 
