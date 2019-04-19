@@ -226,6 +226,8 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
     deny_on recall_privileges_denied # <4>
     deny_on excessive_outstanding_fines # <5>
     deny_on_field AB:This is the reason we are denying you # <6>
+    category_field PC # <7>
+    pattern_personal_name , # <8>
 </SIP>
 ----
 <1> If enabled, Libki won't validate the password given against the SIP server, any password will work
@@ -234,6 +236,8 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
 <4> You can set as many or as few as you want. Delete these if you don't want to deny patrons.
 <5> The full listing is defined in the SIP2 protocol specification
 <6> You can require arbitrary SIP fields to have a value of Y for patrons to be allowed to log in. The format of the setting is _<Field>:<Message>_.
+<7> Specify a SIP tag here that contains the user category in the SIP user lookup response
+<8> Specify a pattern for splitting lastname and firstname in personal name field(AE) in SIP response
 
 An equivilent configuration set via YAML in the system settings would look like this:
 [source,yaml]
@@ -253,6 +257,8 @@ deny_on:
   - recall_privileges_denied
   - excessive_outstanding_fines
 deny_on_field: "AB:This is the reason we are denying you"
+category_field: PC
+pattern_personal_name: ,
 ----
 
 The SIP section requires the following parameters:
