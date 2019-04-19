@@ -28,12 +28,6 @@ This is the same as *Default time allowance per session*, except for guest accou
 
 TIP: The value of *Default guest time allowance per day* should be a whole number.
 
-===== Client registration update delay limit
-
-When a Libki client launches, it periodically connects to the Libki server to register itself. If a client does not re-register itself within this number of minutes, the Libki server will remove it from the list of active clients.
-
-TIP: The value of *Client registration update delay limit* should be a whole number.
-
 ==== Data retention
 
 ===== History anonymization
@@ -86,6 +80,12 @@ Warn user that they will be logged out automatically after this many minutes of 
 ====== Client inactivity logout
 
 Log user out automatically after this many minutes of inactivity.
+
+====== Client registration update delay limit
+
+When a Libki client launches, it periodically connects to the Libki server to register itself. If a client does not re-register itself within this number of minutes, the Libki server will remove it from the list of active clients.
+
+TIP: The value of *Client registration update delay limit* should be a whole number.
 
 ==== Reservations
 
