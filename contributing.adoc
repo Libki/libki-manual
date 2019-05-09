@@ -27,6 +27,107 @@ Pull requests for features and fixes to the Libki client should be submitting as
 * Perltidy new or altered pieces of code before submission.
 ** Libki server comes with a .perltidyrc file that should always be used when tidying Libki server code.
 
+=== Translation
+
+==== Translating the server
+
+===== Starting a new translation
+
+The server is translated by a .po file located in lib/Libki/I18N. The .po file is based on a template in the same folder called messages.pot. It is generated dynamically from the server and then combined with a dictionary of our own.
+
+Before doing anything else, we need to add the language we're translating to the dictionary.
+
+[source,bash]
+----
+cd lib/Libki/I18N
+nano extras.pot
+----
+
+The first part of that dictionary is the important bit. Add your language to the language menu. Follow the same syntax the other languages use and place it alphabetically. Here I'm adding Danish, so that would be on top. A complete list of language codes can be found https://developer.chrome.com/webstore/i18n[here].
+
+[source,bash]
+----
+# Language menu
+
+# Danish
+msgid "lang.da"
+msgstr "Dansk"
+
+# English
+msgid "lang.en"
+msgstr "English"
+----
+
+You will also need to add this to all the other language files. Since these have been written at different times it might be located in the beginning or in the end of the file.
+
+Now let's update messages.pot by generating a fresh one. It should be generated anew whenever a translation is being worked on. To generate a new one, make sure libki-server is your current directory.
+
+[source,bash]
+----
+./script/utilities/update_i18n.sh --generate
+----
+
+Copy the template to your language and edit it. 
+
+[source,bash]
+----
+cp lib/Libki/I18N/messages.pot da.po
+----
+
+It is strongly suggested to use a dedicated po editor. We recommend https://poedit.net[Poedit].
+
+===== Updating an existing translation
+
+If you want to update an existing translation you need to generate a new messages.pot and update your translation so it's based on the new messages.pot. As a part of the update process things that have changed will be marked up, making them easy to find.
+
+First, generate a new messages.pot. Make sure libki-server is your current directory.
+
+[source,bash]
+----
+./script/utilities/update_i18n.sh --generate
+----
+
+Once it's generated, update the existing translation. This too must be run from libki-server. We're using Danish as our translation here.
+
+[source,bash]
+----
+./script/utilities/update_i18n.sh --update lib/Libki/I18N/da.po
+----
+
+A backup will be created in lib/Libki/I18N in case you need it. Just remember to delete it before making a pull request.
+
+If you're using https://poedit.net[Poedit] to edit your translation it's easy to find the next incomplete line with shift-ctrl-down.
+
+==== Translating the client
+
+The client is translated with a .qm file generated from a .ts file. We're editing the .ts file and once that's done we generate a .qm file. You need to have Qt Linguist installed. On Linux, that's qt5-dev-tools. `sudo apt install qt5-dev-tools`. On Windows, the easiest way is to download it from Thruask's github. https://github.com/thurask/Qt-Linguist/releases
+
+First we need to edit Libki.pro. Open it and add your language to the list of translations. Use the same syntax as the other ones have. Here I'm adding Danish. A complete list of language codes can be found https://developer.chrome.com/webstore/i18n[here].
+
+----
+TRANSLATIONS = languages/libkiclient_fr.ts \
+        languages/libkiclient_sv.ts \
+        languages/libkiclient_da.ts
+----
+
+Next is the creation of the .ts file. This is done with `lupdate Libki.pro`, either in terminal, cmd or Powershell. 
+
+Now use Qt Linguist to translate your .ts file. It's located in the languages directory.
+
+When that's done, create a .qm file. `lrelease Libki.pro` This will also update the other language files as well.
+
+Finally, add the .qm file to libki.qrc. Here I've added Danish at the bottom.
+
+----
+...
+    <qresource prefix="/">
+        <file>languages/libkiclient_fr.qm</file>
+        <file>languages/libkiclient_sv.qm</file>
+        <file>languages/libkiclient_es.qm</file>
+    </qresource>
+</RCC>
+----
+
 === Manual
 
 Suggestions for edits can be sent to the Libki Documentation Team as a merge request via GitHub.
