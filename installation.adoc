@@ -2,7 +2,7 @@
 
 === Automatic installation
 
-When using the automatic installer, the server must be Ubuntu Server 18.04 or Debian Stretch.
+When using the automatic installer, the server must be Ubuntu Server 18.04, Debian Stretch or Debian Buster.
 
 Please read through the installation moments. There is a one-line command in the end if that's what you prefer.
 
