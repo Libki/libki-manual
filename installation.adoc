@@ -55,7 +55,7 @@ This is the whole installation process in one single line.
 
 [source,bash]
 ----
-apt update && apt upgrade -y && apt install git && git clone https://github.com/libki/libki-server.git && cd libki-server && ./install.sh
+apt update && apt upgrade -y && apt install git -y && git clone https://github.com/libki/libki-server.git && cd libki-server && ./install.sh
 ----
 
 === Manual installation
