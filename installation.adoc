@@ -11,19 +11,9 @@ wget -O- https://install.libki.org | sudo bash
 
 (By the way, that's the letter O, not the number 0.)
 
-=== Alternative methods
+=== Alternative method
 
-Everyone doesn't want to pipe to bash. It prevents you from reading the code you're about to run on your system.
-
-==== Method one - download the installer manually and run
-
-[source,bash]
-----
-wget -O libki-install.sh https://install.libki.org
-sudo bash libki-install.sh
-----
-
-==== Method two - clone our repository and run the installer
+Everyone doesn't want to pipe to bash. It prevents you from reading the code you're about to run on your system. If you want to read it through first, this alternative should be for you.
 
 [source,bash]
 ----
