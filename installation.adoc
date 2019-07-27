@@ -1,287 +1,36 @@
 == Installation
 
-=== Automatic installation
+=== One-step automatic install
 
-When using the automatic installer, the server must be Ubuntu Server 18.04, Debian Stretch or Debian Buster.
-
-Please read through the installation moments. There is a one-line command in the end if that's what you prefer.
-
-==== Login as root
-
-If you are not logged in as root, switch to root.
+Do you want to setup Libki as fast as possible and have a dedicated server? Then this is the choice for you. Just make sure your server is running Ubuntu 18.04 or Debian 10 (Buster) and that you don't have a user named 'libki'.
 
 [source,bash]
 ----
-sudo su
+wget -O- https://install.libki.org | sudo bash
 ----
 
-==== Updating, upgrading and installing git
+(By the way, that's the letter O, not the number 0.)
 
-It's always best to do a fresh upgrade to be sure you have the latest versions of software available.
+=== Alternative methods
 
-Git is used to download the Libki server.
+Everyone doesn't want to pipe to bash. It prevents you from reading the code you're about to run on your system.
+
+==== Method one - download the installer manually and run
 
 [source,bash]
 ----
-apt update && apt upgrade -y && apt install git -y
+wget -O libki-install.sh https://install.libki.org
+sudo bash libki-install.sh
 ----
 
-==== Downloading and running the installer
-
-First download the Libki server.
+==== Method two - clone our repository and run the installer
 
 [source,bash]
 ----
 git clone https://github.com/libki/libki-server.git
-----
-
-Enter the downloaded directory.
-
-[source,bash]
-----
 cd libki-server
+sudo bash install.sh
 ----
-
-Run the installer.
-
-[source,bash]
-----
-./install.sh
-----
-
-==== One-line installer
-
-This is the whole installation process in one single line.
-
-[source,bash]
-----
-apt update && apt upgrade -y && apt install git -y && git clone https://github.com/libki/libki-server.git && cd libki-server && ./install.sh
-----
-
-=== Manual installation
-
-If you wish to completely build the Libki server by yourself, these guidelines should help you along the way. This is written towards someone new to terminal and a lack of GUI.
-
-First of all, update and upgrade.
-
-[source,bash]
-----
-apt update && apt upgrade -y
-----
-
-==== Dependencies
-
-[source,bash]
-----
-apt install cpanm curl perl git make build-essential unzip mysql-server ntp -y
-----
-
-You might need these packages too, depending on your server. If you encounter error messages when installing the needed perl modules, this is the place to start.
-
-[source,bash]
-----
-apt install libmysqlclient-dev libxml-parser-perl libxml-libxml-perl
-----
-
-==== Setting up a user
-
-It is suggested to setup a new user account to run the server from. From here on, we'll use the username *libki*. Give it a good, strong (and preferrably memorable) password.
-
-[source,bash]
-----
-adduser libki
-----
-
-==== Clone the repository
-
-Clone the repo to the home directory of your newly created user.
-
-[source,bash]
-----
-git clone https://github.com/libki/libki-server.git /home/libki/libki-server
-----
-
-==== Install needed perl modules
-
-[source,bash]
-----
-cd /home/libki/libki-server
-cpanm -n --installdeps .
-----
-
-This will take a while. Make sure it ends with saying everything was installed correctly. If not, you will need to fix what's missing.
-
-Now we need to add the Libki server's perl module to our $PATH, so our shell knows where to find it.
-
-[source,bash]
-----
-echo "export PERL5LIB=$PERL5LIB:/home/libki/libki-server/lib" >> ~/.bashrc
-----
-
-We also need to add it to the libki user's $PATH.
-
-[source,bash]
-----
-echo "export PERL5LIB=$PERL5LIB:/home/libki/libki-server/lib" >> /home/libki/.bashrc
-----
-
-==== Create a database
-
-Depending on your MySQL or MariaDB version, it may or may not want you to log in with a username and password. If you are to log in with a username and password, the username is *root* and you chose the password during the dependencies installation.
-
-If that's the case, start MySQL with `mysql -uroot -p`.
-
-If you didn't get to create a root password during installation, just start MySQL with `mysql`.
-
-Once inside MySQL, we need to create a database and a user. Note that all aphostrophes are essential and cannot be omitted.
-
-[source,sql]
-----
-CREATE DATABASE libki;
-CREATE USER 'libki'@'localhost' IDENTIFIED BY 'CHOOSEAPASSWORD';
-GRANT ALL PRIVILEGES ON libki.* TO 'libki'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-----
-
-==== Populate the database and create an admin account
-
-We got our perl modules, we have an empty database... Let's fill it with things.
-
-[source,bash]
-----
-./installer/update_db.pl
-----
-
-In order for Libki to access the database, we must give it the login information. Make a copy of the libki_local.conf.example file and remove .example. Open it and change the password to the one you chose.
-
-[source,bash]
-----
-cp libki_local.conf.example libki_local.conf
-nano libki_local.conf
-----
-
-You save and close with Ctrl-O and Ctrl-X, respectively.
-
-Now create an admin account, so we can access the administration pages once the server is up and running.
-
-[source,bash]
-----
-./script/administration/create_user.pl -u ADMINUSERNAME -p ADMINPASSWORD -s
-----
-
-==== Setting up log files
-
-The Libki server will produce log files. Their default location is /var/log/libki. Even if you don't want to change the default location, you still need to make a working copy the log4perl.conf.example file.
-
-[source,bash]
-----
-cp log4perl.conf.example log4perl.conf
-----
-
-==== Installing cron jobs
-
-Part of what makes the Libki server tick are repeating scheduled tasks called cronjobs.
-
-Libki has two cronjobs. The first one `script/cronjobs/libki.pl` runs each and every minute and performs tasks such as decrementing time for logged in users and logging out users whose time has run out.
-
-The second cronjob `script/cronjobs/libki_nightly.pl` performs nightly tasks such as resetting everyones allotment of minutes and deleting data that is past the retention dates specified in the server settings.
-
-TIP: If a cronjob doesn't seem to be working, run it manually and look for errors. A common problem is that a script is unable to write to a log file due to incorrect permissions.
-
-There are two pre-written cron files, just to import. The first one is for the libki user and the second one for root.
-
-[source,bash]
-----
-cat installer/cron/libkicron | crontab -u libki -
-cat installer/cron/rootcron | crontab -
-----
-
-==== Create a Libki service
-
-Copy the init template to /etc/init.d.
-
-[source,bash]
-----
-cp init-script-template /etc/init.d/libki
-----
-
-If you want to edit the port of the server (if you, for example, want to run it on port 80 and don't want to use a reverse proxy), this is the time. Open it up, change port number from 3000 to 80 (or something else), save and close.
-
-Finally, run update-rc.d to enable Libki as a service.
-
-[source,bash]
-----
-update-rc.d libki defaults
-----
-
-==== Start the server
-
-[source,bash]
-----
-service libki start
-----
-
-If all went well, you should have a server up and running by now. You can visit it on http://127.0.0.1:3000/administration.
-
-==== Manual install optional: Set up your reverse proxy
-
-Make sure you're logged in as root.
-
-* Install Apache
-
-[source,bash]
-----
-apt-get install apache2
-----
-
-* Navigate to the libki-server directory
-
-[source,bash]
-----
-cd /home/libki/libki-server
-----
-
-* Run the apache_setup.sh script
-
-This disables the old default conf, copies reverse_proxy.config to Apache's folder and enables both the Libki reverse proxy and the needed modules..
-
-[source,bash]
-----
-./script/setup/apache_setup.sh
-----
-
-* Restart apache
-
-[source,bash]
-----
-service apache2 restart
-----
-
-==== Troubleshooting
-
-You can now test to see if your server is running by using the cli web browser 'links'. If you don't have links installed you can installed it via the command
-
-[source,bash]
-----
-sudo apt-get install links
-----
-
-Now, open the Libki public page via:
-
-[source,bash]
-----
-links 127.0.0.1:80
-----
-
-If this loads the Libki login page, congrats! If you get an error, you can try bypassing the proxy and access the server directly on port 3000.
-
-[source,bash]
-----
-links 127.0.0.1:3000
-----
-
-If this works, then you'll want to check your Apache error logs for the failure reason. If it does not work, you'll want to check the Libki server error log instead. It can be found at /home/libki/libki\_server.log if you've followed this tutorial closely.
 
 === Docker
 
