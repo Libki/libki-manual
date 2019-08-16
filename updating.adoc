@@ -1,0 +1,57 @@
+== Updating the server
+
+=== Precautions
+
+It is *HIGHLY* advised to only update the server while the system is not being used and the service is shut down.
+
+[source,bash]
+----
+service libki stop
+----
+
+Then make a backup of your current server and database, in case something doesn't go as smoothly as planned. Updating isn't entirely stable, especially when updating from very old installations. 
+
+Please read through the backup section on how to backup your server.
+
+=== Get the latest version and updating the database
+
+Enter your libki-server folder and use `git pull` to download the latest version. Run `installer/update_db.pl` in order to update the database.
+
+[source,bash]
+----
+cd libki-server
+git pull
+./installer/update_db.pl
+----
+
+*OBSERVE* that if you're upgrading from a 2.x installation, this won't work. You'll need to use the latest 2.x release r19.08 as a stepping stone before updating to a 3.x server, in order to convert the database.
+
+[source,bash]
+----
+cd ~
+apt update && apt install unzip -y
+wget https://github.com/Libki/libki-server/archive/r19.08.zip
+unzip r19.08.zip
+./r19.08/installer/update_db.pl
+----
+
+Now you can run the latest `update_db.pl` again.
+
+=== Updating the server files
+
+Once the database is up to date, it's time to update the server files. Delete the old server files, replace them with the new ones and change ownership of them to the libki user.
+
+[source,bash]
+----
+cd ~
+rm -rf /home/libki/libki-server
+cp -r libki-server /home/libki/libki-server
+chown -R libki:libki /home/libki/libki-server
+----
+
+Once all that is done, it's time to start the service again. If everything worked out properly, your Libki server should be updated and working just as well (or even better) than before.
+
+[source,bash]
+----
+service libki start
+----

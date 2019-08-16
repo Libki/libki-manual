@@ -30,6 +30,8 @@ include::desktop-client.adoc[]
 
 include::backup-restore.adoc[]
 
+include::updating.adoc[]
+
 include::contributing.adoc[]
 
 include::credits.adoc[]

@@ -2,7 +2,7 @@
 
 WARNING: It is *HIGHLY* advised to only perform  backups and restorations of the database while the system is not being used!
 
-=== Backing up
+=== Backing up the database
 
 The backup program is intended to be used on a server with a libki user. 
 
@@ -49,7 +49,16 @@ Backup the first date in every month at 01.15:
 15 1 1 * * /usr/local/bin/libki-backup -s
 ----
 
-=== Restoring a backup
+=== Backing up the server files
+
+The easiest way to backup the server files is to tar the libki-server folder in the libki user's home folder. I suggest you put it in the same backup folder as the database backup.
+
+[source,bash]
+----
+tar -pzcvf /home/libki/backups/libki-server-backup_190816.tar.gz /home/libki/libki-server
+----
+
+=== Restoring a database backup
 
 Restoring a backup of the database will delete the current database, so be sure you really want to do this.
 
@@ -68,3 +77,15 @@ libki-restore db_180706_19.30.sql
 ----
 
 Your database is now at the point it was when the backup was created.
+
+=== Restoring a backup of the server files
+
+Start by removing the current server files and replace them with the backup archive.
+
+[source,bash]
+----
+service libki stop
+rm -rf /home/libki/libki-server
+tar -pzxvf /home/libki/backups/libki-server-backup_190816.tar.gz /home/libki/libki-server
+service libki start
+----
