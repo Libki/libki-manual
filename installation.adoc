@@ -6,7 +6,7 @@ Do you want to setup Libki as fast as possible and have a dedicated server? Then
 
 [source,bash]
 ----
-wget -O- https://install.libki.org | sudo bash
+wget -O- https://install.libki.org | bash
 ----
 
 (By the way, that's the letter O, not the number 0.)
