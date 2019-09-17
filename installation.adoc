@@ -19,7 +19,7 @@ Everyone doesn't want to pipe to bash. It prevents you from reading the code you
 ----
 git clone https://github.com/libki/libki-server.git
 cd libki-server
-sudo bash install.sh
+bash install.sh
 ----
 
 === Docker
