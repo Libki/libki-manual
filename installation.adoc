@@ -1,6 +1,5 @@
 == Installation
 
-////
 === One-step automatic install
 
 Do you want to setup Libki as fast as possible and have a dedicated server? Then this is the choice for you. Just make sure your server is running Ubuntu 18.04 or Debian 10 (Buster) and that you don't have a user named 'libki'.
@@ -15,7 +14,6 @@ wget -O- install.libki.org | bash
 === Alternative method
 
 Everyone doesn't want to pipe to bash. It prevents you from reading the code you're about to run on your system. If you want to read it through first, this alternative should be for you.
-////
 
 [source,bash]
 ----
