@@ -226,9 +226,9 @@ Other things:
 * I remove logout and shutdown options from the start menu. (This is a PITA to do by hand, but here it goes:
 
 In `/usr/share/cinnamon/applets/menu@cinnamon.org/applet.js`, find the line `//Lock screen`.
-Start a multiline comment there with +++`\*`+++ and go to the line `//Shutdown button`.
+Start a multiline comment there with `+++\*+++` and go to the line `//Shutdown button`.
 Somewhat close to that one, 15 lines or so, there should be a line saying `this.systemButtonsBox.add(button.aactor, { y_align: St.Align.END, y_fill: false });`.
-End your multiline comment after this line with +++`*/`+++.
+End your multiline comment after this line with `+++*/+++`.
 
 Finally, I set my preferred volume and remove the volume icon from the toolbar. All our clients have headphones, and they can leak quite a lot if the volume is high enough.
 
