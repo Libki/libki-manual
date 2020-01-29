@@ -166,6 +166,7 @@ xmodmap -e 'keycode 64='
 ----
 
 Other bypass preventions:
+
 * Disable the power button
 * Disabling remote media popup (Nemo->Preferences->Behaviour)
 * Replace the user shell with rbash chsh -s /bin/rbash USERNAME
@@ -217,6 +218,7 @@ session-cleanup-script=/usr/local/bin/restore
 ----
 
 Other things:
+
 * I install Google Chrome since pretty much everyone is familiar with it regardless of what system they're used to running. The keychain password is set to blank/unencrypted.
 * I change LibreOffice Writer to save to docx as default.
 * I add shortcuts to Chrome and Writer to the desktop.
