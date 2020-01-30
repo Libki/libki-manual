@@ -148,8 +148,9 @@ sudo apt-get install libqt5webkit5 libqt5script5
 
 ===== Linux Mint with Cinnamon
 
-====== Bypass prevention
 https://github.com/Libki/libki-client/issues/39#issuecomment-562189590[Contributed] by https://github.com/loidor[Loidor]
+
+====== Bypass prevention
 
 I'm running libkiclient through startup applications without a delay, and that launches it fast enough.
 Then I'm running a script I call demapper with a 2 second delay, because it isn't reliable with a shorter delay.
