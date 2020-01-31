@@ -144,6 +144,95 @@ If the client is installed on another machine than the one compiling it, just so
 sudo apt-get install libqt5webkit5 libqt5script5
 ---- 
 
+==== Configuration
+
+===== Linux Mint with Cinnamon
+
+https://github.com/Libki/libki-client/issues/39#issuecomment-562189590[Contributed] by https://github.com/loidor[Loidor]
+
+====== Bypass prevention
+
+I'm running libkiclient through startup applications without a delay, and that launches it fast enough.
+Then I'm running a script I call demapper with a 2 second delay, because it isn't reliable with a shorter delay.
+That disables Alt and Super, so it's impossible to switch workspace, launch the start menu and opening the run console.
+
+Code for demapper:
+
+[source,bash]
+----
+#!/bin/bash
+
+xmodmap -e 'keycode 133='
+xmodmap -e 'keycode 64='
+----
+
+Other bypass preventions:
+
+* Disable the power button
+* Disabling remote media popup (Nemo->Preferences->Behaviour)
+* Replace the user shell with rbash chsh -s /bin/rbash USERNAME
+
+I haven't encountered anyone terminal-savvy enough yet, but once I do I'll look into disabling kill, killall and pkill.
+
+====== Autologin, backup, restore
+I've disabled the screensaver, since I don't want the client to become locked, and have an autologin set in /etc/lightdm/lightdm.conf.
+
+Together with this, I've got a backup/restore solution where backup copies /home/USERNAME to /opt/USERNAME. restore deletes /home/USERNAME and replaces it with /opt/USERNAME. Only root can run backup when needed (after changes), and restore is run on every logout through lightdm.conf.
+
+backup code:
+ 
+[source,bash]
+----
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+rm -rf /opt/public
+cp -a /home/public /opt/public
+echo "Backup klar."
+----
+
+restore code:
+
+[source,bash]
+----
+#!/bin/bash
+
+rsync -qrpog --delete --exclude '.X*' /opt/public /home/
+echo "" > /home/public/.local/share/recently-used.xbel
+rm /var/spool/cups/*
+----
+
+My lightdm.conf:
+
+[source]
+----
+[Seat:*]
+autologin-guest=false
+autologin-user=public
+autologin-user-timeout=5
+
+session-cleanup-script=/usr/local/bin/restore
+----
+
+Other things:
+
+* I install Google Chrome since pretty much everyone is familiar with it regardless of what system they're used to running. The keychain password is set to blank/unencrypted.
+* I change LibreOffice Writer to save to docx as default.
+* I add shortcuts to Chrome and Writer to the desktop.
+* I remove terminal from the quick launch toolbar since most users don't know what it is.
+* I remove logout and shutdown options from the start menu. (This is a PITA to do by hand, but here it goes:
+
+In `/usr/share/cinnamon/applets/menu@cinnamon.org/applet.js`, find the line `//Lock screen`.
+Start a multiline comment there with `+++\*+++` and go to the line `//Shutdown button`.
+Somewhat close to that one, 15 lines or so, there should be a line saying `this.systemButtonsBox.add(button.aactor, { y_align: St.Align.END, y_fill: false });`.
+End your multiline comment after this line with `+++*/+++`.
+
+Finally, I set my preferred volume and remove the volume icon from the toolbar. All our clients have headphones, and they can leak quite a lot if the volume is high enough.
+
 === Configuration options
 
 The Libki client may be customized further with options set in the configuration INI file that are not revealed in the installer wizard.
