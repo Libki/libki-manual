@@ -445,15 +445,19 @@ Closing hours are a way to prevent users from starting a session that will be cu
 
 === Print management
 
-Print management in Libki is powered by Google Cloud Print. To set up print management, first set up your printers in Google Cloud Print. Next, generate a client id and secret. Finally, enter your configuration in the *Printer configuration* setting as YAML. The code block below is an example configuration with two printer profiles for a single printer ( one color, one monochrome ).
+Print management in Libki can be done using two different backends: Google Cloud Print and CUPS.
 
-==== Finding your cloud printer id:
+==== Configuring your server with Google Cloud Print
+
+To set up print management, first set up your printers in Google Cloud Print. Next, generate a client id and secret. Finally, enter your configuration in the *Printer configuration* setting as YAML. The code block below is an example configuration with two printer profiles for a single printer ( one color, one monochrome ).
+
+===== Finding your cloud printer id:
 . Set up the printer for Google Cloud Print
 . Browse to https://www.google.com/cloudprint/simulate.html
 . Use the Printer Search API to search for you printers, or browse to https://www.google.com/cloudprint/search directly
 . Locate your printer in the results, find the "id" field, it should look something like `id: "ed4ddb78-dc03-8574-8687-be3995df8cd4"`
 
-==== Getting your client id and client secret
+===== Getting your client id and client secret
 . Get oAuth2 Credentials
 . Browse to https://console.developers.google.com/
 . Enable Cloud API
@@ -464,7 +468,7 @@ Print management in Libki is powered by Google Cloud Print. To set up print mana
 [#img-google-developer-console]
 image::images/google-developer-console.png[Google Developer Console]
 
-==== Setting up your print management configuration
+===== Setting up your print management configuration
 
 You can use the configuration below as a template, simply replace the `client_id`, `client_secret`, and `google_cloud_id` field values with your own.
 
@@ -494,13 +498,33 @@ printers:
         type: STANDARD_MONOCHROME
 ----
 
-==== Authorizing your server to use the Cloud Print API
+===== Authorizing your server to use the Cloud Print API
 . Run `script/administration/enable_google_cloud_print.pl`
 . Open the URL given in a web browser
 . Authorize your account
 . Copy and paste the code you are given back into the script
 . Hit enter
 . You should recieve the message `Session stored.` if everything was successful.
+
+==== Configuring your server with CUPS
+
+To set up print management using CUPS, you need to know the name of the CUPS server (or its IP address), the username used to conect to that server and the name of the printer that will be set up.
+
+===== Setting up your print management configuration
+
+You can use the configuration below as a template, simply replace the `server` and `username` field values with your own.
+
+[source,json]
+----
+cups:
+      server: localhost
+      username: print
+
+printers:
+  PDF:
+    type: cups
+    name: PDF
+----
 
 ==== Configuring your clients
 
