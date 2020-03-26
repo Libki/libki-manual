@@ -258,6 +258,18 @@ INVALID_USER="Login Failed: Username and password do not match" ; What text to s
                                             ; error code is received from the server (any error code can be used)
 ```
 
+===== Labels translation
+
+To assign custom text by languages, you can define a different `[label]` block for each specific supported language. The syntax for the new block is `[labels-<lang>]` where <lang> is the language code with or without the country part. For example : `[labels-en]` or `[labels-fr_CA]`.
+
+```
+[labels-fr_CA]
+username="Username:"                        ; What text it will say at the username input field
+password="Password:"                        ; What text it will say at the password input field
+```
+
+Labels in `[label]` will be used as default values if no label is defined in the language block or if the block itself doesn't exist.
+
 ==== Passwordless login
 
 If you are using single-signon via SIP, and your SIP server is set to mark any password a users provides as valid, you can set the Libki client to passwordless mode.
