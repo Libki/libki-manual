@@ -244,6 +244,7 @@ To modify the labels on the Libki login screen, you can set a `[label]` block. T
 * username
 * password
 * waiting_holds
+* error codes received from the server
 
 You need only add lines to the `[label]` block for the labels you wish to modify. Any labels not redefined here will use the default word or words for
 the given language in use.
@@ -253,6 +254,8 @@ the given language in use.
 username="Username:"                        ; What text it will say at the username input field
 password="Password:"                        ; What text it will say at the password input field
 waiting_holds="You have holds waiting."     ; This can be used if your client connects to your library's ILS via SIP2.
+INVALID_USER="Login Failed: Username and password do not match" ; What text to show on the login screen when this
+                                            ; error code is received from the server (any error code can be used)
 ```
 
 ==== Passwordless login
