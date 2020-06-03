@@ -64,7 +64,7 @@ Now let's update messages.pot by generating a fresh one. It should be generated 
 
 [source,bash]
 ----
-./script/utilities/update_i18n.sh --generate
+./script/utilities/translate.sh --generate
 ----
 
 Copy the template to your language and edit it. 
@@ -84,14 +84,14 @@ First, generate a new messages.pot. Make sure libki-server is your current direc
 
 [source,bash]
 ----
-./script/utilities/update_i18n.sh --generate
+./script/utilities/translate.sh --generate
 ----
 
 Once it's generated, update the existing translation. This too must be run from libki-server. We're using Danish as our translation here.
 
 [source,bash]
 ----
-./script/utilities/update_i18n.sh --update lib/Libki/I18N/da.po
+./script/utilities/translate.sh --update lib/Libki/I18N/da.po
 ----
 
 A backup will be created in lib/Libki/I18N in case you need it. Just remember to delete it before making a pull request.
