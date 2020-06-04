@@ -428,16 +428,18 @@ Would be expressed in SQL like:
 ====== Rule options
 
 The list of all possible criteria include:
-* client_location
-* client_name
-* user_category
+
+* `client_location`
+* `client_name`
+* `user_category`
 
 The list of all possible rules include:
-* session: The number of minutes per session a registered user is given
-* guest_session: The number of minutes per session a guest user is given
-* daily: The daily allotment of minutes to be given to a registered user for the day
-* guest_daily: The daily allotment of minutes to be given to a guest user for the day
-* no_reservation_required: Even if "Client reservations" is set to "Reservation only", allows a login without a reservation. The value should be '1' to enable.
+
+* `session`: The number of minutes per session a registered user is given
+* `guest_session`: The number of minutes per session a guest user is given
+* `daily`: The daily allotment of minutes to be given to a registered user for the day
+* `guest_daily`: The daily allotment of minutes to be given to a guest user for the day
+* `no_reservation_required`: Even if "Client reservations" is set to "Reservation only", allows a login without a reservation. The value should be '1' to enable.
 
 === Closing hours
 
