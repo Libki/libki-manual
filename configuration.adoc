@@ -113,6 +113,46 @@ If the *Source URL* is an image, it can be forced to a specific width instead of
 
 This is the same as *Width* for the *Source URL* but for height.
 
+==== Client power options
+
+===== Client power off settings
+
+====== Power off action
+
+Choose whether the "turn off" button and "automatic shutdown" function cause the clients to shutdown completely or be put in a suspend state.
+
+TIP: Note that some setups won't permit the use of the wake on LAN fonctionnality together with the shutdown option. Suspend must be chosen in this case.
+
+====== Client automatic shutdown delay
+
+Libki can automatically send a power off signal to the clients after closing time. Use this setting to control how many minutes after closing this is done. Leave empty to disable.
+
+===== Client power on settings
+
+Libki uses wake on LAN to power on the clients. The machines must be wake on LAN capable and it must be enabled. This might require some configuration in the operating system and/or BIOS settings of the machine.
+
+====== Host
+
+This setting is optionnal. If left empty, the limited broadcast address (255.255.255.255) is used. This should be enough when the server is in the same local network as the clients.
+
+To target another node or a distant network, specify the IP address or fully qualified domain name (FQDN).
+
+TIP: It is possible to use wake on LAN over the internet, by forwarding requests to the local broadcast address either via port forwarding at the router level or a forwarding service running on a dedicated machine.
+
+====== Port
+
+The port number for the magic packet. This setting is optionnal and defaults to the discard service (9).
+
+====== MAC addresses
+
+This is the list of the physical addresses of the network adapters used to wake the machines.
+
+TIP: The format is one address per line, where each address uses either no separator or *:*.
+
+======= Automatic power on time
+
+Libki can automatically send a wake up signal to each machine whose MAC address is listed in the *MAC addresses* setting. All the machines will be woken up at this time each day. Leave empty to disable.
+
 ==== Custom Javascript
 
 ===== Administration interface JavaScript
