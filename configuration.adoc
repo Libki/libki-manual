@@ -252,7 +252,7 @@ deny_on:
   - excessive_outstanding_fines
 deny_on_field: "AB:This is the reason we are denying you"
 category_field: PC
-pattern_personal_name: ,
+pattern_personal_name: ","
 ----
 
 The SIP section requires the following parameters:
