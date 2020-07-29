@@ -131,6 +131,12 @@ Libki can automatically send a power off signal to the clients after closing tim
 
 Libki uses wake on LAN to power on the clients. The machines must be wake on LAN capable and it must be enabled. This might require some configuration in the operating system and/or BIOS settings of the machine.
 
+====== Send the signal using
+
+By default, the wake on LAN packet is sent by the server. It is possible to configure the setup to use a running Libki client to send the packet to wake up the other machines.
+
+TIP: This can be used to wake machines on another network without having to contact a public address on the clients' side.
+
 ====== Host
 
 This setting is optionnal. If left empty, the limited broadcast address (255.255.255.255) is used. This should be enough when the server is in the same local network as the clients.
