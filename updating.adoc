@@ -44,8 +44,12 @@ Once the database is up to date, it's time to update the server files. Delete th
 [source,bash]
 ----
 cd ~
+cp /home/libki/libki-server/libki_local.conf ./
+cp /home/libki/libki-server/log4perl.conf ./
 rm -rf /home/libki/libki-server
 cp -r libki-server /home/libki/libki-server
+cp ./libki_local.conf /home/libki/libki-server/
+cp ./log4perl.conf /home/libki/libki-server/
 chown -R libki:libki /home/libki/libki-server
 ----
 
