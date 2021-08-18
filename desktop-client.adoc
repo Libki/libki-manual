@@ -90,6 +90,23 @@ This is useful in the event that a client loses connectivity with the server and
 This is the path to which the Libki client will be installed.
 It is recommended to use the default installation path unless you have a specific reason to do otherwise.
 
+.Solutions for slow loading of Libki client
+[NOTE]
+===============================
+On some computers, the Libki client may not launch before a patron has been able to open an application which will then sit above the Libki login screen, allowing that patron to use that program without time limitations.
+
+Windows has an feature where startup programs are *intentionally* delayed, based on Microsoft's presumption that all users must want Windows to load first
+This feature causes a delay in Libki loading, giving the user the opportunity to bypass.
+This feature can be turned off with a simple registry edit.
+
+path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize
+name: StartupDelayInMSec
+data: 0
+type: dword
+
+Details: https://thegeekpage.com/startupdelayinmsec/
+===============================
+
 === Linux
 
 In order to use the libki client on Linux, you must compile it from source. This guide is written with Debian based distros in mind (like Debian, Ubuntu, Linux Mint or Elementary OS).
