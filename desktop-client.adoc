@@ -95,7 +95,7 @@ It is recommended to use the default installation path unless you have a specifi
 ===============================
 On some computers, the Libki client may not launch before a patron has been able to open an application which will then sit above the Libki login screen, allowing that patron to use that program without time limitations.
 
-Windows has an feature where startup programs are *intentionally* delayed, based on Microsoft's presumption that all users must want Windows to load first
+Windows 10 has a feature where startup programs are *intentionally* delayed, based on Microsoft's presumption that all users must want Windows to load first
 This feature causes a delay in Libki loading, giving the user the opportunity to bypass.
 This feature can be turned off with a simple registry edit.
 
