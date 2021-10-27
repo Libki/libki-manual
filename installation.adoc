@@ -2,7 +2,7 @@
 
 === One-step automatic install
 
-Do you want to setup Libki as fast as possible and have a dedicated server? Then this is the choice for you. Just make sure your server is running Ubuntu 18.04, 20.04 or Debian 10 (Buster) and that you don't have a user named 'libki'.
+Do you want to setup Libki as fast as possible and have a dedicated server? Then this is the choice for you. Just make sure your server is running Ubuntu 18.04, 20.04 or Debian 11 (Bullseye) and that you don't have a user named 'libki'.
 
 [source,bash]
 ----
