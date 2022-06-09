@@ -117,7 +117,7 @@ Install required packages:
 
 [source,bash]
 ----
-sudo apt-get install git build-essential qtcreator qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev 
+sudo apt-get install git build-essential qtcreator qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev 
 ----
 
 Download a copy of the libki client source.
