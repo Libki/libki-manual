@@ -13,25 +13,65 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
+            
+      - name: Commit Message
+        run: echo "${{ github.event.head_commit.message }}"
+      - name: Branch
+        run: echo "${{ steps.extract_branch.outputs.branch }}"
+      - name: Create output dir
+        run: mkdir libki-manual/output
+      - name: List Files
+        run: ls -alh libki-manual
+      - name: Replace LIBKI_VERSION
+        run: sed -i -e 's@##LIBKI_VERSION##@'"${{ steps.extract_branch.outputs.branch }}"'@g' libki-manual/libki-manual.adoc
+      - name: Replace libki-version
+        run: sed -i -e 's@{libki-version}@'"${{ steps.extract_branch.outputs.branch }}"'@g' libki-manual/libki-manual.adoc
+      - name: Show replacements
+        run: git diff
+        working-directory: libki-manual
 
-      - run: mkdir -p output
-      - run: docker pull asciidoctor/docker-asciidoctor
-      - run: sed -i -e 's@##LIBKI_VERSION##@'"${{ steps.extract_branch.outputs.branch }}"'@g' libki-manual.adoc
-      - run: sed -i -e 's@{libki-version}@'"${{ steps.extract_branch.outputs.branch }}"'@g' libki-manual.adoc
-      - run: docker run -v $GITHUB_WORKSPACE/libki-manual:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output libki-manual.adoc
-      - run: docker run -v $GITHUB_WORKSPACE/libki-manual:/documents/ --name asciidoc-to-pdf  asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output libki-manual.adoc
-      - run: docker run -v $GITHUB_WORKSPACE/libki-manual:/documents/ --name asciidoc-to-epub asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output libki-manual.adoc
-      - run: git clone https://${GITHUB_TOKEN}@github.com/Libki/manual-libki-org.git
-      - run: ls -alh
-      - run: if [ -d "manual-libki-org/docs/${GITHUB_REF##*/}" ]; then rm -rf manual-libki-org/docs/${GITHUB_REF##*/}; fi
-      - run: mkdir -p manual-libki-org/docs/${GITHUB_REF##*/}
-      - run: cp -r libki-manual/output/. manual-libki-org/docs/${GITHUB_REF##*/}/.
-      - run: cp -r libki-manual/images manual-libki-org/docs/${GITHUB_REF##*/}/.
-      - run: cd manual-libki-org
-      - run: ls -alh
-      - run: git config user.name "Kyle M Hall"
-      - run: git config user.email "kyle@bywatersolutions.com"
-      - run: git add docs/${GITHUB_REF##*/}
-      - run: git status
-      - run: git commit -m "Deploy manual version '${GITHUB_REF##*/}' to libki.manual.org"
-      - run: git push origin HEAD:master
+      - name: List Files, local
+        run: ls -alh $GITHUB_WORKSPACE/libki-manual
+      - name: List Files, container
+        run: docker run -v $GITHUB_WORKSPACE/libki-manual:/documents/ asciidoctor/docker-asciidoctor ls -alh /documents
+
+      - name: Build the manual as HTML
+        run: docker run -v $GITHUB_WORKSPACE/libki-manual:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor -D /documents/output libki-manual.adoc
+      - name: List Files
+        run: ls -alh libki-manual
+
+      - name: Build the manual as PDF
+        run:  docker run -v $GITHUB_WORKSPACE/libki-manual:/documents/ --name asciidoc-to-pdf  asciidoctor/docker-asciidoctor asciidoctor-pdf -D /documents/output libki-manual.adoc
+      - name: List Files
+        run: ls -alh libki-manual
+
+      - name: Build the manual as EPub
+        run:  docker run -v $GITHUB_WORKSPACE/libki-manual:/documents/ --name asciidoc-to-epub asciidoctor/docker-asciidoctor asciidoctor-epub3 -D /documents/output libki-manual.adoc
+      - name: List Files
+        run: ls -alh libki-manual
+
+      - name: Clone the manual website
+        run: git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/Libki/manual-libki-org.git
+
+      - name: Delete the old copy of this manual version if it exists
+        run: if [ -d "manual-libki-org/docs/${GITHUB_REF##*/}" ]; then rm -rf manual-libki-org/docs/${GITHUB_REF##*/}; fi
+            
+      - name: Make the directory for this version's manual
+        run: mkdir -p manual-libki-org/docs/${GITHUB_REF##*/}
+
+      - name: Copy the build output to the website git clone
+        run: cp -r libki-manual/output/. manual-libki-org/docs/${GITHUB_REF##*/}/.
+
+      - name: Copy the images to the website git clone
+        run: cp -r libki-manual/images manual-libki-org/docs/${GITHUB_REF##*/}/.
+
+      - name: Configure git
+        run: |
+            ls -alh
+            git config user.name "Kyle M Hall"
+            git config user.email "kyle@bywatersolutions.com"
+            git add docs/${GITHUB_REF##*/}
+            git status
+            git commit -m "Deploy manual version '${GITHUB_REF##*/}' to libki.manual.org"
+            git push origin HEAD:master
+        working-directory: manual-libki-org
