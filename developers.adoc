@@ -13,6 +13,7 @@
 == Release process
 
 The process of making a release is:
+
 * Make a GitHub release for the client, attach the latest "unstable" installer as an asset to that release.
 ** Create release notes from changelog
 * Make a GitHub release for the print manager, attach the latest "unstable" installer as an asset to that release.
