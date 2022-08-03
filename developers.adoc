@@ -1,0 +1,28 @@
+= Developer guidlines
+
+== Creating a release
+
+* Release should occur on the first of each month or shortly thereafter.
+* If no changes have been made to any of the subprojects in a given month, no release will be made that month.
+* If one or more subprojects have changes for release, *all* subprojects will get a release tag, even if a given subproject has no changes.
+** Each subproject has it's own independent versioning, but release "versions" match across all subprojects
+*** Release names are a two digit year, and two digit month, prefixed with an "r" ( e.g. r22.08 ).
+**** If a second release in a month is needed to fix a severe bug, it should use a sequence starting with .01 ( e.g. r22.08.01 )
+** This ensure compatibility between all Libki subprojects and reduces end-user confusion.
+
+== Release process
+
+The process of making a release is:
+* Make a GitHub release for the client, attach the latest "unstable" installer as an asset to that release.
+** Create release notes from changelog
+* Make a GitHub release for the print manager, attach the latest "unstable" installer as an asset to that release.
+** Create release notes from changelog
+* Make a GitHub release for the print release station, attach the latest "unstable" installer as an asset to that release.
+** Create release notes from changelog
+* Make a GitHub release for the server
+** Create release notes from changelog
+** Once the new server Docker images are build, tag them with the release name ( e.g. r22.08 and r21.08-alpine ).
+*** Push to Docker Hub and Quay.io
+* Fork the latest version of the manual, create a new branch with the release name
+** Update the manuals index page, add links to the new manaual formats for this release.
+* Make a blog post on Libki.org
