@@ -539,6 +539,13 @@ printers:
     type: PrintManager
 ----
 
+====== Printer parameteters
+* chroming: Required, values are `color` or `monochrome`
+* physical_printer_name: Required, must exactly match the name of the Windows printer to be used
+* plexing: Required, values are "simplex", "duplexlong" or "duplexshort"
+* type: Required, current options are "PrintManager" or "cups"
+* auto_release: Optional, if set to "yes", prints to this printer will not be held for release, but instead be released automatically if funds are available.
+
 ==== Configuring your server with CUPS
 
 To set up print management using CUPS, you need to know the name of the CUPS server (or its IP address), the username used to conect to that server and the name of the printer that will be set up.
