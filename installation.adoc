@@ -55,3 +55,9 @@ Add the following to the root user's crontab or to a file in `/etc/cron.d/`.
 * * * * * root docker exec <container-name> /app/script/cronjobs/libki.pl
 0 0 * * * root docker exec <container-name> /app/script/cronjobs/libki_nightly.pl
 ```
+
+=== Enabling SSL
+
+Libki Server does not have native SSL support. To use SSL with Libki, you should use a reverse proxy that supports SSL termination such as Apache, nginx, Traefik, etc. By default Libki uses Apache as its' proxy.
+
+Once you have SSL set up, set the proxy needs to send a custom http header `X-Request-Base` with the value of your server URL using SSL. For example, if your FQDN is `libki.mylib.org`, set `X-Request-Base` to `https://libki.mylib.org`.
