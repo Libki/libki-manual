@@ -268,6 +268,7 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
     deny_on_field AB:This is the reason we are denying you # <6>
     category_field PC # <7>
     pattern_personal_name , # <8>
+    ILS Koha # <9>
 </SIP>
 ----
 <1> If enabled, Libki won't validate the password given against the SIP server, any password will work
@@ -278,6 +279,7 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
 <6> You can require arbitrary SIP fields to have a value of Y for patrons to be allowed to log in. The format of the setting is _<Field>:<Message>_.
 <7> Specify a SIP tag here that contains the user category in the SIP user lookup response
 <8> Specify a pattern for splitting lastname and firstname in personal name field(AE) in SIP response
+<9> Can be 'Koha' or 'Evergreen' at this time, controls how waiting holds are calculated for alerting patrons
 
 An equivilent configuration set via YAML in the system settings would look like this:
 [source,yaml]
@@ -299,6 +301,7 @@ deny_on:
 deny_on_field: "AB:This is the reason we are denying you"
 category_field: PC
 pattern_personal_name: ","
+ILS: Koha
 ----
 
 The SIP section requires the following parameters:
@@ -315,6 +318,7 @@ The SIP section requires the following parameters:
 * fee_limit: As notated, this can be a set number or a SIP field to check. If the fee limit is exceeded, the user login will be denied.
 * deny_on: This can be repeated to deny logins based on the patron information flags detailed in the SIP2 protocol specification.
 * deny_on_field: This can be repeated to deny logins if the Specified field does not have a value of "Y".
+
 ==== LDAP
 
 Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP server are currently stored in the _libki\_local.conf_ only, though setting support is expected soon.
