@@ -270,6 +270,7 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
     pattern_personal_name , # <8>
     pattern_personal_name_reverse 1 <9>
     ILS Koha # <10>
+    skip_import_personal_name 0 <11>
 </SIP>
 ----
 <1> If enabled, Libki won't validate the password given against the SIP server, any password will work
@@ -282,6 +283,7 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
 <8> Specify a pattern for splitting lastname and firstname in personal name field(AE) in SIP response
 <9> If the patrons last name and first name are reversed, this option will correct the order
 <10> Can be 'Koha' or 'Evergreen' at this time, controls how waiting holds are calculated for alerting patrons
+<11> If set, patron names will not be imported into Libki, only the cardnumber/userid and par
 
 An equivilent configuration set via YAML in the system settings would look like this:
 [source,yaml]
@@ -304,6 +306,7 @@ deny_on_field: "AB:This is the reason we are denying you"
 category_field: PC
 pattern_personal_name: ","
 ILS: Koha
+skip_import_personal_name: 0
 ----
 
 The SIP section requires the following parameters:
@@ -320,6 +323,7 @@ The SIP section requires the following parameters:
 * fee_limit: As notated, this can be a set number or a SIP field to check. If the fee limit is exceeded, the user login will be denied.
 * deny_on: This can be repeated to deny logins based on the patron information flags detailed in the SIP2 protocol specification.
 * deny_on_field: This can be repeated to deny logins if the Specified field does not have a value of "Y".
+* skip_import_personal_name: If enabled, first and last names of patrons will not be pulled from the patron information response and stored in the database
 
 ==== LDAP
 
