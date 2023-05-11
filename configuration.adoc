@@ -267,11 +267,12 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
     deny_on excessive_outstanding_fines # <5>
     deny_on_field AB:This is the reason we are denying you # <6>
     category_field PC # <7>
-    pattern_personal_name , # <8>
-    pattern_personal_name_reverse 1 <9>
-    ILS Koha # <10>
-    skip_import_personal_name 0 <11>
-    hold_notification 0 <12>
+    birthdate_field PB # <8>
+    pattern_personal_name , # <9>
+    pattern_personal_name_reverse 1 <10>
+    ILS Koha # <11>
+    skip_import_personal_name 0 <12>
+    hold_notification 0 <13>
 </SIP>
 ----
 <1> If enabled, Libki won't validate the password given against the SIP server, any password will work
@@ -281,11 +282,12 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
 <5> The full listing is defined in the SIP2 protocol specification
 <6> You can require arbitrary SIP fields to have a value of Y for patrons to be allowed to log in. The format of the setting is _<Field>:<Message>_.
 <7> Specify a SIP tag here that contains the user category in the SIP user lookup response
-<8> Specify a pattern for splitting lastname and firstname in personal name field(AE) in SIP response
-<9> If the patrons last name and first name are reversed, this option will correct the order
-<10> Can be 'Koha' or 'Evergreen' at this time, controls how waiting holds are calculated for alerting patrons
-<11> If set, patron names will not be imported into Libki, only the cardnumber/userid and par
-<12> Disables hold notification if set to 0
+<8> Specify a SIP tag here that contains the user's date of birth  in the SIP user lookup response, default is 'PB'
+<9> Specify a pattern for splitting lastname and firstname in personal name field(AE) in SIP response
+<10> If the patrons last name and first name are reversed, this option will correct the order
+<11> Can be 'Koha' or 'Evergreen' at this time, controls how waiting holds are calculated for alerting patrons
+<12> If set, patron names will not be imported into Libki, only the cardnumber/userid and par
+<13> Disables hold notification if set to 0
 
 An equivilent configuration set via YAML in the system settings would look like this:
 [source,yaml]
@@ -306,6 +308,7 @@ deny_on:
   - excessive_outstanding_fines
 deny_on_field: "AB:This is the reason we are denying you"
 category_field: PC
+birthdate_field: PB
 pattern_personal_name: ","
 ILS: Koha
 skip_import_personal_name: 0
