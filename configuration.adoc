@@ -531,46 +531,53 @@ printers:
     public_printer_name: Color
     plexing: simplex
     type: PrintManager
+    cost_per_page: .10
   color-duplex-long:
     chroming: color
     physical_printer_name: somePrinter
     public_printer_name: Color (Duplex/Long)
     plexing: duplexlong
     type: PrintManager
+    cost_per_page: .10
   color-duplex-short:
     chroming: color
     physical_printer_name: somePrinter
     public_printer_name: Color (Duplex/Short)
     plexing: duplexshort
     type: PrintManager
+    cost_per_page: .10
   monochrome:
     chroming: monochrome
     physical_printer_name: somePrinter
     public_printer_name: Monochrome
     plexing: simplex
     type: PrintManager
+    cost_per_page: .05
   monochrome-duplex-long:
     chroming: monochrome
     physical_printer_name: somePrinter
     public_printer_name: Monochrome (Duplex/Long)
     plexing: duplexlong
     type: PrintManager
+    cost_per_page: .05
   monochrome-duplex-short:
     chroming: monochrome
     public_printer_name: Monochrome (Deplex/Short)
     plexing: duplexshort
     type: PrintManager
+    cost_per_page: .05
 ----
 
-====== Printer parameteters
+====== Printer parameters
 * chroming: Required, values are `color` or `monochrome`.
 * physical_printer_name: Required, must exactly match the name of the Windows printer to be used.
 * public_printer_name: Required, this is how the printer will be displayed for print release
 * plexing: Required, values are "simplex", "duplexlong" or "duplexshort".
 * type: Required, current options are "PrintManager" or "cups".
 * auto_release: Optional, if set to "yes", prints to this printer will not be held for release, but instead be released automatically if funds are available.
+* cost_per_page: the decimal value per page for this printer
 
-====== Other parameteters
+====== Other parameters
 * public_print_release: Top level paramter. If set to 'disabled' patrons will be unable to release their own print jobs, only librarians will be able to do so.
 
 ==== Configuring your server with CUPS
