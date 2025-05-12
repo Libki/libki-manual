@@ -6,3 +6,4 @@
 * Erik Öhrn <erik.ohrn@gmail.com>
 * Christopher Vella <chris@calyx.net.au>
 * Luke Fritz <ldfritz@gmail.com>
+* Ian Walls <ian@bywatersolutions.com>

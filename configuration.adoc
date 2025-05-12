@@ -139,7 +139,7 @@ TIP: This can be used to wake machines on another network without having to cont
 
 ====== Host
 
-This setting is optionnal. If left empty, the limited broadcast address (255.255.255.255) is used. This should be enough when the server is in the same local network as the clients.
+This setting is optional. If left empty, the limited broadcast address (255.255.255.255) is used. This should be enough when the server is in the same local network as the clients.
 
 To target another node or a distant network, specify the IP address or fully qualified domain name (FQDN).
 
@@ -147,7 +147,7 @@ TIP: It is possible to use wake on LAN over the internet, by forwarding requests
 
 ====== Port
 
-The port number for the magic packet. This setting is optionnal and defaults to the discard service (9).
+The port number for the magic packet. This setting is optional and defaults to the discard service (9).
 
 ====== MAC addresses
 
@@ -348,7 +348,7 @@ Refer to the main Print Management section for details.
 
 ===== Reservation timeout
 
-The amount of time \( in minutes \) that a user has to log into his or her reserved computer. If the user does not log in within the specified time limit, the reserved client will become available again.
+The amount of time in minutes that a user has to log into his or her reserved computer. If the user does not log in within the specified time limit, the reserved client will become available again.
 
 TIP: The value of *Reservation timeout* should be a whole number.
 
@@ -520,7 +520,7 @@ Install and configure Libki Print Manager on a computer that can print directly 
 
 Below is an example with 6 virtual printers, 1 each for monochrome and color variations of simplex, long duplex and short duplex.
 
-[source,json]
+[source,yaml]
 ----
 ---
 public_print_release: enabled
@@ -562,7 +562,7 @@ printers:
     cost_per_page: .05
   monochrome-duplex-short:
     chroming: monochrome
-    public_printer_name: Monochrome (Deplex/Short)
+    public_printer_name: Monochrome (Duplex/Short)
     plexing: duplexshort
     type: PrintManager
     cost_per_page: .05
@@ -588,7 +588,7 @@ To set up print management using CUPS, you need to know the name of the CUPS ser
 
 You can use the configuration below as a template, simply replace the `server` and `username` field values with your own.
 
-[source,json]
+[source,yaml]
 ----
 cups:
       server: localhost
@@ -619,5 +619,6 @@ You will also need to ensure those directories exist on the client computer.
 Once the Libki client has been started, it will watch those directories for PDF files.
 When the client sees a file, it will uploaded it to the server with the matching printer name.
 
-You can use any PDF print driver to print PDF file to these directories.
-A custom PDF print driver for Libki is in development, but not yet available.
+You can use any PDF print driver to print PDF file to these directories.  Two viable, tested options are:
+ - https://github.com/Libki/PdfScribe[PDFScribe]
+ - https://github.com/clawsoftware/clawPDF[ClawPDF]
