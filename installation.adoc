@@ -45,6 +45,8 @@ LIBKI_TZ=America/Denver // <2>
 <1> Instance name, may be left empty for single-instance servers
 <2> Find your timezome in the documentation https://metacpan.org/pod/DateTime::TimeZone::Catalog[here].
 
+A Docker Compose file is provided at `docker/docker-compose.yml` which bring up both Libki Server and a MariaDB container.  Environment variables should be saved at `docker/.env`
+
 ==== Cronjobs
 
 The Libki cronjobs are not set to run inside the Docker container. Instead, it the cronjobs should be set up on the host machine.
