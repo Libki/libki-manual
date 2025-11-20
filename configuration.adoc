@@ -195,6 +195,14 @@ This setting should be used to conform to https://www.eugdpr.org/[GDPR] if neces
 
 ==== Guest passes
 
+===== Self-registered guest passes
+
+This setting controls whether clients will have a 'Log in as guest' button that automatically creates a guest account for them on login.
+
+===== Expire remaining guest pass time on logout
+
+If enabled, this setting will zero out any remaining time on a guest account after that account logs out of a client.  This is useful for preventing unauthorized users from picking up discarded guest passes and getting extra time beyond what is allowed by library policy.
+
 ===== Prefix for guest passes
 
 The phrase that each guest pass username should start with. If left empty, the phrase "guest" will be used (  e.g. guest1, guest2, guest3, etc ).
@@ -364,6 +372,12 @@ Refer to the main Print Management section for details.
 The amount of time in minutes that a user has to log into his or her reserved computer. If the user does not log in within the specified time limit, the reserved client will become available again.
 
 TIP: The value of *Reservation timeout* should be a whole number.
+
+===== Reservation Auto-Cancel
+
+The amount of time in minutes before a user's existing reservation in which a login to ANY client will automatically cancel their reservation.
+
+TIP: The value of *Reservation Auto-Cancel* should be a whole number.
 
 ===== Display usernames
 
