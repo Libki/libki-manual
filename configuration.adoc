@@ -338,7 +338,20 @@ Single Sign-on with other systems can be achieved via LDAP. Settings for LDAP se
 
 TIP: Make sure the URL beings with http:// or https:// as necessary.
 
-==== Print management
+```
+<LDAP>
+    enable 1
+    ldaps 0
+    host ldap://ldap.mylibrary.org
+    port 368
+    adminDn admin_dn
+    adminPwd admin_password
+    searchBase OU=...,DC=mylibrary,DC=org
+    match_attribute sAMAccountName
+</LDAP>
+```
+
+===== Print management
 
 ===== Printer configuration
 
