@@ -49,7 +49,7 @@ TIP: The value of *Extend time at* should be a whole number.
 This setting determines if a user is eligible for an automatic time extension. It has two options:
 
 * User's client is reserved
-** This choice prevents a time extension in the case that the user's client is reserved. Reservations for other client's are not taken into account.
+** This choice limits a time extension in the case that the user's client is reserved to not overlap with that reservation. Reservations for other client's are not taken into account. The Reservation Gap length taken into account.
 * Any client is reserved
 ** This choice prevents a time extension in the case that *any* client is currently reserved. If any client is reserved a time extension will not take place, even if the users's client is not currently reserved,
 
@@ -197,7 +197,9 @@ This setting should be used to conform to https://www.eugdpr.org/[GDPR] if neces
 
 ===== Self-registered guest passes
 
-This setting controls whether clients will have a 'Log in as guest' button that automatically creates a guest account for them on login.
+This setting controls whether clients will have a 'Log in as guest' button that automatically creates a guest account for them on login.  Users will receive a one-time message on the Libki Client with their username and password, allowing them to lock their session or utilize print release services.
+
+TIP: the Libki Client will need to be rebooted at least once before this option appears.
 
 ===== Expire remaining guest pass time on logout
 
@@ -359,11 +361,47 @@ TIP: Make sure the URL beings with http:// or https:// as necessary.
 </LDAP>
 ```
 
-===== Print management
+==== Payments
+
+This section manages integration with electronic payment gateways.
+
+===== Stripe Payments
+
+Stripe integration requires a https://stripe.com[Stripe.com] account.  You'll need to retrieve 3 values from the Dashboard:
+
+. *Stripe Publishable Key*: found under Dashboard -> Developers -> API Keys
+. *Stripe Secret Key*: found under Dashboard -> Developers -> API Keys
+. *Stripe Webhook Signing Secret*: Requires adding an 'Event Destination' within Stripe Workbench.
+.. Go to the 'Webhooks' tab
+.. Click the 'Add destination' button (upper right)
+.. Enter the Endpoint URL: *<your Libki URL>*/api/v2/transactions/stripe/webhook 
+.. Give the destination a name and description
+.. Select the *_payment_intent.payment_failed_* and *_payment_intent.succeeded events_* from the list.
+.. Click the 'Save destination' button
+
+You can test your Stripe integration in sandbox mode before switching to a live account.  A list of testing credit card numbers can be found at https://docs.stripe.com/testing?testing-method=card-numbers#cards.
+
+==== Print management
 
 ===== Printer configuration
 
 Refer to the main Print Management section for details.
+
+===== Queued Print jobs timeout
+
+The amount of time a print job can be in the Queued status before the job is set to Expired, and a new Pending job is added. This is meant to allow print jobs taken by a Print Manager that has become unresponsive to be re-printed automatically.
+Leave this setting empty to disable the feature.
+
+===== Allow administrators to view user print job contents
+
+Whether to allow admins the ability to see the content of a user's print job.
+
+===== Gratis Printing
+
+This feature grants the ability to give a user either free pages of printing or a dollar 'discount' on print jobs that can reset on a daily, weekly or monthly basis.
+This gratis allowance is used first when releasing a print job, with any remaining balance being assessed against the users funds.  If sufficiently large, the free printing allowance can be used against multiple print jobs.
+
+Default values are set here, and can vary between regular users and guests. Values can also be updated individually in the User Edit screen.
 
 ==== Reservations
 
@@ -379,9 +417,33 @@ The amount of time in minutes before a user's existing reservation in which a lo
 
 TIP: The value of *Reservation Auto-Cancel* should be a whole number.
 
+===== Minimum reservation time required
+
+The minimum allowed time a reservation can be made for.  Defaults to 1 minute if left blank.
+
+===== Reservation Gap
+
+The number of minutes between reservations, to allow for physical transitions times.  Defaults to 0 (no gap).
+
+===== Display Public Reservations Page
+
+Whether to display the list of current clients and their reservation status on the public Libki page.  Defaults to enabled.
+
+===== Display the status of the first reservation within
+
+Time range in which to show reservations on the public page; defaults to 60 minutes from now.
+
+===== Opening time for reservation
+
+Universal time of day when PCs are available for reservation
+
 ===== Display usernames
 
-This setting determines if a Libki client that is reserved and waiting will display the username of the person it is waiting for.
+This setting determines if a Libki client that is reserved and waiting will display the username of the person it is waiting for.  Can be:
+* Username
+* First and last name
+* Anonymous
+* Disabled
 
 ==== Terms of service
 
@@ -403,6 +465,10 @@ Example:
 ----
 
 If Single Sign-on via SIP integration has been set up, and the SIP configuration for `category_field` has been set up, values from the SIP field will be automatically added to this list as the appear for the first time via SIP.
+
+===== Display first and last names
+
+Whether to display user's names, and allow for the entry of this data.
 
 ==== Advanced settings
 
@@ -531,6 +597,13 @@ The list of all possible rules include:
 * `guest_daily`: The daily allotment of minutes to be given to a guest user for the day
 * `no_reservation_required`: Even if "Client reservations" is set to "Reservation only", allows a login without a reservation. The value should be '1' to enable.
 
+==== API keys
+
+API keys are required for Libki Print Manager and Libki Print Station to connect to Libki Server.
+On this page you can create new keys and delete existing ones.
+
+Keys have a human-readable note (to indicate their purpose) and a Type (PrintManager or PrintStation).  The key value itself is a UUID.
+
 === Closing hours
 
 Closing hours are a way to prevent users from starting a session that will be cut short by the closing of the location he or she is at. Closing hours can be set on a site-wide basis, or on a per-location basis. If a given location has no closing hours set, that location will use the _All locations_ closing hours.
@@ -580,6 +653,7 @@ printers:
     plexing: simplex
     type: PrintManager
     cost_per_page: .05
+    auto_release: yes
   monochrome-duplex-long:
     chroming: monochrome
     physical_printer_name: somePrinter
@@ -587,12 +661,14 @@ printers:
     plexing: duplexlong
     type: PrintManager
     cost_per_page: .05
+    auto_release: client
   monochrome-duplex-short:
     chroming: monochrome
     public_printer_name: Monochrome (Duplex/Short)
     plexing: duplexshort
     type: PrintManager
     cost_per_page: .05
+    auto_release: public
 ----
 
 ====== Printer parameters
@@ -601,7 +677,10 @@ printers:
 * public_printer_name: Required, this is how the printer will be displayed for print release
 * plexing: Required, values are "simplex", "duplexlong" or "duplexshort".
 * type: Required, current options are "PrintManager" or "cups".
-* auto_release: Optional, if set to "yes", prints to this printer will not be held for release, but instead be released automatically if funds are available.
+* auto_release: Optional
+** if set to "yes", prints to this printer will not be held for release, but instead be released automatically if funds are available.
+** if set to "client", prints will be auto-released only if they come from Libki Clients (held for release via web upload)
+** if set to "public", prints will be auto-released only if they are uploaded to the web (held for release from Libki Clients)
 * cost_per_page: the decimal value per page for this printer
 
 ====== Other parameters
@@ -646,6 +725,17 @@ You will also need to ensure those directories exist on the client computer.
 Once the Libki client has been started, it will watch those directories for PDF files.
 When the client sees a file, it will uploaded it to the server with the matching printer name.
 
+Libki determines the desired copies for a print by looking at the filename of the saved PDF.  If it ends in the pattern {number}_{number}.pdf, the first number is interpreted as the copies parameter.
+
 You can use any PDF print driver to print PDF file to these directories.  Two viable, tested options are:
  - https://github.com/Libki/PdfScribe[PDFScribe]
  - https://github.com/clawsoftware/clawPDF[ClawPDF]
+
+.Automatic Configuration
+[NOTE]
+===============================
+As of Libki 26.02, printer configuration can be handled through the Client installer wizard.
+This depends on using ClawPDF as the print driver; this must be installed first.
+When prompted by the Client installer wizard, enter the printer names you wish to enable for the client, one per line, with the first line being the default printer.
+The wizard will take care of creating the printer directories, updating the Client .ini file, and configuring ClawPDF
+===============================
