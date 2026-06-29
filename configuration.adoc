@@ -276,13 +276,14 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
     deny_on recall_privileges_denied # <4>
     deny_on excessive_outstanding_fines # <5>
     deny_on_field AB:This is the reason we are denying you # <6>
-    category_field PC # <7>
-    birthdate_field PB # <8>
-    pattern_personal_name , # <9>
-    pattern_personal_name_reverse 1 <10>
-    ILS Koha # <11>
-    skip_import_personal_name 0 <12>
-    hold_notification 0 <13>
+    deny_on_field AF:Your library card has expired.:EXPIRE # <7>
+    category_field PC # <8>
+    birthdate_field PB # <9>
+    pattern_personal_name , # <10>
+    pattern_personal_name_reverse 1 <11>
+    ILS Koha # <12>
+    skip_import_personal_name 0 <13>
+    hold_notification 0 <14>
 </SIP>
 ----
 <1> If enabled, Libki won't validate the password given against the SIP server, any password will work
@@ -291,13 +292,14 @@ To enable SIP authentication, you will need to edit your libki_local.conf and ad
 <4> You can set as many or as few as you want. Delete these if you don't want to deny patrons.
 <5> The full listing is defined in the SIP2 protocol specification
 <6> You can require arbitrary SIP fields to have a value of Y for patrons to be allowed to log in. The format of the setting is _<Field>:<Message>_.
-<7> Specify a SIP tag here that contains the user category in the SIP user lookup response
-<8> Specify a SIP tag here that contains the user's date of birth  in the SIP user lookup response, default is 'PB'.  Some ILS, like Atriuum by Booksystems, use 'PD'.
-<9> Specify a pattern for splitting lastname and firstname in personal name field(AE) in SIP response
-<10> If the patrons last name and first name are reversed, this option will correct the order
-<11> Can be 'Koha' or 'Evergreen' at this time, controls how waiting holds are calculated for alerting patrons
-<12> If set, patron names will not be imported into Libki, only the cardnumber/userid and par
-<13> Disables hold notification if set to 0
+<7> With the format _<Field>:<Message>:<Value>_ the login is denied if the field contains _<Value>_ and _<Message>_ is shown to the patron.
+<8> Specify a SIP tag here that contains the user category in the SIP user lookup response
+<9> Specify a SIP tag here that contains the user's date of birth  in the SIP user lookup response, default is 'PB'.  Some ILS, like Atriuum by Booksystems, use 'PD'.
+<10> Specify a pattern for splitting lastname and firstname in personal name field(AE) in SIP response
+<11> If the patrons last name and first name are reversed, this option will correct the order
+<12> Can be 'Koha' or 'Evergreen' at this time, controls how waiting holds are calculated for alerting patrons
+<13> If set, patron names will not be imported into Libki, only the cardnumber/userid and par
+<14> Disables hold notification if set to 0
 
 An equivilent configuration set via YAML in the system settings would look like this:
 [source,yaml]
